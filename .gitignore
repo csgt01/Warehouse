@@ -1,0 +1,12 @@
+/target/
+
+.DS_Store
+
+/pom.xml.releaseBackup
+/release.properties
+
+# IntelliJ
+.idea/
+smart-routing.iml
+/target/
+/logs/
