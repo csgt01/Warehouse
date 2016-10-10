@@ -22,18 +22,13 @@ public class Buy {
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private Calendar createdAt;
 	
+	@NotNull
 	private Date broughtAt;
 
-	public Calendar getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Calendar createdAt) {
-		this.createdAt = createdAt;
-	}
-
+	@NotNull
 	private Integer quantity;
 
+	@NotNull
 	private Double price;
 
 	@NotNull
@@ -79,4 +74,14 @@ public class Buy {
 	public void setBroughtAt(Date broughtAt) {
 		this.broughtAt = broughtAt;
 	}
+
+
+	public Calendar getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Calendar createdAt) {
+		this.createdAt = createdAt;
+	}
+	
 }

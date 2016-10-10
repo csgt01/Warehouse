@@ -1,5 +1,7 @@
 package de.csgt.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,8 @@ public class BuyService implements BuyServiceInterface {
 	
 	@Override
 	public Iterable<Buy> listAllBuys() {
-		return productRepository.findAll();
+		Iterable<Buy> findAll = productRepository.findAll();
+		return findAll != null ? findAll : new ArrayList<Buy>();
 	}
 
 	@Override

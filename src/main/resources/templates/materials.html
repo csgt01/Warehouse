@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
-                <th>Product Id</th>
+                <th>Name</th>
                 <th>Description</th>
                 <th>View</th>
                 <th>Edit</th>
@@ -22,7 +22,7 @@
             </tr>
             <tr th:each="material : ${materials}">
                 <td th:text="${material.id}"><a href="/material/${material.id}">Id</a></td>
-                <td th:text="${material.materialId}">Product Id</td>
+                <td th:text="${material.name}">name</td>
                 <td th:text="${material.description}">descirption</td>
                 <td><a th:href="${'/material/' + material.id}">View</a></td>
                 <td><a th:href="${'/material/edit/' + material.id}">Edit</a></td>

@@ -42,6 +42,7 @@ public class MaterialController {
 
 	@RequestMapping("material/edit/{id}")
 	public String edit(@PathVariable Integer id, Model model) {
+		System.out.println("" + id + " " + model.toString());
 		model.addAttribute("material", materialService.getMaterialById(id));
 		return "materialform";
 	}

@@ -23,9 +23,9 @@ public class BuyController {
 	@Autowired
 	private BuyServiceInterface buyService;
 	
-    @RequestMapping(value = "/buys", method = RequestMethod.GET)
-    public String list(@PathVariable Integer materialId, Model model){
-        
+    @RequestMapping(value = "buys", method = RequestMethod.GET)
+    public String list(Model model){
+    	model.addAttribute("buys", buyService.listAllBuys());
         return "buys";
     }
 
@@ -40,8 +40,10 @@ public class BuyController {
 	@RequestMapping(value = "buy", method = RequestMethod.POST)
     public String checkPersonInfo(@Valid Buy buy, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-        	System.out.println(bindingResult.toString());
+//        	System.out.println("bindingResult:" + bindingResult.toString());
         	model.addAttribute("materials", materialService.listAllMaterials());
+        	model.addAttribute("buy", buy);
+        	model.addAttribute("fields", bindingResult);
             return "buyform";
         }
         buyService.saveBuy(buy);
