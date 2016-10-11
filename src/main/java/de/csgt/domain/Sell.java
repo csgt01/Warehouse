@@ -1,6 +1,8 @@
 package de.csgt.domain;
 
+import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class ProductBuy {
+public class Sell {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,17 +25,21 @@ public class ProductBuy {
 	private Calendar createdAt;
 	
 	@NotNull
+	private Date soldAt;
+
+	@NotNull
 	private Integer quantity;
 	
 	@NotNull
-	@ManyToOne
-	@JoinColumn
-	private Material material;
-	
+	private Double price;
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn
 	private Product product;
+	
+	@OneToMany
+	private List<Material> materials;
 
 	public Long getId() {
 		return id;
@@ -50,6 +57,14 @@ public class ProductBuy {
 		this.quantity = quantity;
 	}
 
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	public Calendar getCreatedAt() {
 		return createdAt;
 	}
@@ -57,5 +72,30 @@ public class ProductBuy {
 	public void setCreatedAt(Calendar createdAt) {
 		this.createdAt = createdAt;
 	}
+
+	public List<Material> getMaterials() {
+		return materials;
+	}
+
+	public void setMaterials(List<Material> materials) {
+		this.materials = materials;
+	}
+
+	public Date getSoldAt() {
+		return soldAt;
+	}
+
+	public void setSoldAt(Date soldAt) {
+		this.soldAt = soldAt;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 	
 }

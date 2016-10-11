@@ -1,6 +1,5 @@
 package de.csgt.domain;
 
-import java.math.BigDecimal;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -18,10 +17,9 @@ public class Product {
     @Column(name="created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
 	private Calendar createdAt;
 
-    private String productId;
+    private String name;
     private String description;
     private String imageUrl;
-    private BigDecimal price;
 
     public String getDescription() {
         return description;
@@ -39,14 +37,6 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -55,19 +45,19 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
 	public Calendar getCreatedAt() {
 		return createdAt;
 	}
 
 	public void setCreatedAt(Calendar createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
