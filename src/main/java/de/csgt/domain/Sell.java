@@ -14,6 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+
 @Entity
 public class Sell {
 
@@ -39,7 +43,8 @@ public class Sell {
 	private Product product;
 	
 	@OneToMany
-	private List<Material> materials;
+	@Cascade(value = {CascadeType.ALL})
+	private List<SellMaterial> sellMaterials;
 
 	public Long getId() {
 		return id;
@@ -73,12 +78,12 @@ public class Sell {
 		this.createdAt = createdAt;
 	}
 
-	public List<Material> getMaterials() {
-		return materials;
+	public List<SellMaterial> getSellMaterials() {
+		return sellMaterials;
 	}
 
-	public void setMaterials(List<Material> materials) {
-		this.materials = materials;
+	public void setSellMaterials(List<SellMaterial> sellMaterials) {
+		this.sellMaterials = sellMaterials;
 	}
 
 	public Date getSoldAt() {
@@ -95,6 +100,18 @@ public class Sell {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\", "
+				+ "\"createdAt\":\"" + createdAt + "\", "
+				+ "\"soldAt\":\"" + soldAt + "\", "
+				+ "\"quantity\":\"" + quantity + "\", "
+				+ "\"price\":\"" + price + "\", "
+				+ "\"product\":\"" + product + "\", "
+//				+ "\"sellMaterials\":\"" + sellMaterials != null ? sellMaterials.toString() : ""
+				+ "\"}";
 	}
 
 	

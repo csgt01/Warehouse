@@ -30,7 +30,7 @@ public class Buy {
 	private Integer quantity;
 	
 	@Transient
-	private Integer tempQuantity;
+	private Integer tempQuantity = 0;
 	
 	@NotNull
 	private Double price;

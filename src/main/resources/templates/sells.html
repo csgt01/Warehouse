@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <a href="#" th:href="@{/sell/new}">Create Sell</a>
+    <div th:if="${not #lists.isEmpty(sells)}">
+        <h2>Sell List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Material Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Brought at</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="sell : ${sells}">
+                <td th:text="${sell.id}"><a href="/sell/${sell.id}">Id</a></td>
+                <td th:text="${sell.material.name}">name</td>
+                <td th:text="${sell.price}">descirption</td>
+                <td th:text="${sell.quantity}">quantity</td>
+                <td th:text="${sell.broughtAt}">descirption</td>
+                <td><a th:href="${'/sell/' + sell.id}">View</a></td>
+                <td><a th:href="${'/sell/edit/' + sell.id}">Edit</a></td>
+                <td><a th:href="${'/sell/delete/' + sell.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

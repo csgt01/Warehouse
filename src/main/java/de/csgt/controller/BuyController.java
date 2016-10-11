@@ -33,6 +33,7 @@ public class BuyController {
 	@RequestMapping("buy/new")
 	public String newBuy(Model model) {
 		Buy buy = new Buy();
+		
 		model.addAttribute("buy", buy);
 		model.addAttribute("materials", materialService.listAllMaterials());
 		return "buyform";
