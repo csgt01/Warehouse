@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Material {
@@ -22,6 +23,9 @@ public class Material {
 	private String name;
     private String description;
     private String imageUrl;
+    
+    @Min(0)
+    private Integer available = 0;
     
     @OneToMany
     private List<Buy> buys;
@@ -76,6 +80,14 @@ public class Material {
 	@Override
 	public String toString() {
 		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"name\":\"" + name + "\", \"description\":\"" + description + "\", \"imageUrl\":\"" + imageUrl + "\", \"buys\":\"" + buys + "\"}";
+	}
+
+	public Integer getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(Integer available) {
+		this.available = available;
 	}
 	
 }

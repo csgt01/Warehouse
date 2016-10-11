@@ -16,6 +16,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Quantity</th>
                 <th>View</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -24,6 +25,7 @@
                 <td th:text="${material.id}"><a href="/material/${material.id}">Id</a></td>
                 <td th:text="${material.name}">name</td>
                 <td th:text="${material.description}">descirption</td>
+                <td th:text="${material.available}">descirption</td>
                 <td><a th:href="${'/material/' + material.id}">View</a></td>
                 <td><a th:href="${'/material/edit/' + material.id}">Edit</a></td>
                 <td><a th:href="${'/material/delete/' + material.id}">Delete</a></td>

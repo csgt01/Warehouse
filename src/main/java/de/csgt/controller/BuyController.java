@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.csgt.domain.Buy;
+import de.csgt.domain.Material;
 import de.csgt.service.BuyServiceInterface;
 import de.csgt.service.MaterialServiceInterface;
 
@@ -46,6 +47,11 @@ public class BuyController {
         	model.addAttribute("fields", bindingResult);
             return "buyform";
         }
+        System.out.println(buy.toString());
+        Material mat = buy.getMaterial();
+        mat.setAvailable(mat.getAvailable() - buy.getTempQuantity() + buy.getQuantity());
+        Material saveMaterial = materialService.saveMaterial(mat);
+        buy.setMaterial(saveMaterial);
         buyService.saveBuy(buy);
         return "redirect:/buy/" + buy.getId();
     }
@@ -57,15 +63,18 @@ public class BuyController {
     }
     
 
-//	@RequestMapping("product/edit/{id}")
-//	public String edit(@PathVariable Integer id, Model model) {
-//		model.addAttribute("product", productService.getProductById(id));
-//		return "productform";
-//	}
-//
-//	@RequestMapping("product/delete/{id}")
-//	public String delete(@PathVariable Integer id) {
-//		productService.deleteProduct(id);
-//		return "redirect:/products";
-//	}
+	@RequestMapping("buy/edit/{id}")
+	public String edit(@PathVariable Long id, Model model) {
+		Buy buyById = buyService.getBuyById(id);
+		buyById.setTempQuantity(buyById.getQuantity());
+		model.addAttribute("buy", buyById);
+		model.addAttribute("materials", materialService.listAllMaterials());
+		return "buyform";
+	}
+
+	@RequestMapping("buy/delete/{id}")
+	public String delete(@PathVariable Long id) {
+		buyService.deleteBuy(id);
+		return "redirect:/buys";
+	}
 }

@@ -16,14 +16,18 @@
                 <th>Id</th>
                 <th>Material Name</th>
                 <th>Price</th>
+                <th>Quantity</th>
+                <th>Brought at</th>
                 <th>View</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
             <tr th:each="buy : ${buys}">
                 <td th:text="${buy.id}"><a href="/buy/${buy.id}">Id</a></td>
-                <td th:text="${buy.material,name}">name</td>
+                <td th:text="${buy.material.name}">name</td>
                 <td th:text="${buy.price}">descirption</td>
+                <td th:text="${buy.quantity}">quantity</td>
+                <td th:text="${buy.broughtAt}">descirption</td>
                 <td><a th:href="${'/buy/' + buy.id}">View</a></td>
                 <td><a th:href="${'/buy/edit/' + buy.id}">Edit</a></td>
                 <td><a th:href="${'/buy/delete/' + buy.id}">Delete</a></td>

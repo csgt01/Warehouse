@@ -1,6 +1,5 @@
 package de.csgt.domain;
 
-import java.sql.Date;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -10,11 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Buy {
+public class ProductBuy {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,21 +22,17 @@ public class Buy {
 	private Calendar createdAt;
 	
 	@NotNull
-	private Date broughtAt;
-
-	@NotNull
 	private Integer quantity;
 	
-	@Transient
-	private Integer tempQuantity;
-	
-	@NotNull
-	private Double price;
-
 	@NotNull
 	@ManyToOne
 	@JoinColumn
 	private Material material;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn
+	private Product product;
 
 	public Long getId() {
 		return id;
@@ -56,50 +50,12 @@ public class Buy {
 		this.quantity = quantity;
 	}
 
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Material getMaterial() {
-		return material;
-	}
-
-	public void setMaterial(Material material) {
-		this.material = material;
-	}
-	public Date getBroughtAt() {
-		return broughtAt;
-	}
-	
-	public void setBroughtAt(Date broughtAt) {
-		this.broughtAt = broughtAt;
-	}
-
-
 	public Calendar getCreatedAt() {
 		return createdAt;
 	}
 
 	public void setCreatedAt(Calendar createdAt) {
 		this.createdAt = createdAt;
-	}
-
-	public Integer getTempQuantity() {
-		return tempQuantity;
-	}
-
-	public void setTempQuantity(Integer tempQuantity) {
-		this.tempQuantity = tempQuantity;
-	}
-
-	@Override
-	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"broughtAt\":\"" + broughtAt + "\", \"quantity\":\"" + quantity + "\", \"tempQuantity\":\"" + tempQuantity + "\", \"price\":\"" + price + "\", \"material\":\"" + material
-				+ "\"}";
 	}
 	
 }

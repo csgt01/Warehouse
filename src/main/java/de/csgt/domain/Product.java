@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Version;
 
 @Entity
 public class Product {
@@ -16,9 +15,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Version
-    private Calendar updatedAt;
-    
     @Column(name="created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
 	private Calendar createdAt;
 
@@ -33,14 +29,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Calendar getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Calendar updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public Integer getId() {
