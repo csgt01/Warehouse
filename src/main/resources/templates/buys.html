@@ -18,6 +18,8 @@
                 <th>Material Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Sold</th>
+                <th>SoldInt</th>
                 <th>Brought at</th>
                 <th>View</th>
                 <th>Edit</th>
@@ -28,6 +30,8 @@
                 <td th:text="${buy.material.name}">name</td>
                 <td th:text="${buy.price}">descirption</td>
                 <td th:text="${buy.quantity}">quantity</td>
+                <td th:text="${buy.sold}">quantity</td>
+                <td th:text="${buy.soldInt}">quantity</td>
                 <td th:text="${buy.broughtAt}">descirption</td>
                 <td><a th:href="${'/buy/' + buy.id}">View</a></td>
                 <td><a th:href="${'/buy/edit/' + buy.id}">Edit</a></td>

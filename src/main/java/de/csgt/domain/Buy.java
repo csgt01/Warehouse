@@ -34,6 +34,9 @@ public class Buy {
 	
 	@NotNull
 	private Double price;
+	
+	private boolean sold = true;
+	private int soldInt = 0;
 
 	@NotNull
 	@ManyToOne
@@ -96,10 +99,26 @@ public class Buy {
 		this.tempQuantity = tempQuantity;
 	}
 
+	public boolean isSold() {
+		return sold;
+	}
+
+	public void setSold(boolean allSold) {
+		this.sold = allSold;
+	}
+
+	public Integer getSoldInt() {
+		return soldInt;
+	}
+
+	public void setSoldInt(Integer soldInt) {
+		this.soldInt = soldInt;
+	}
+
 	@Override
 	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"broughtAt\":\"" + broughtAt + "\", \"quantity\":\"" + quantity + "\", \"tempQuantity\":\"" + tempQuantity + "\", \"price\":\"" + price + "\", \"material\":\"" + material
-				+ "\"}";
+		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"broughtAt\":\"" + broughtAt + "\", \"quantity\":\"" + quantity + "\", \"tempQuantity\":\"" + tempQuantity + "\", \"price\":\"" + price + "\", \"sold\":\"" + sold
+				+ "\", \"soldInt\":\"" + soldInt + "\", \"material\":\"" + material + "\"}";
 	}
 	
 }

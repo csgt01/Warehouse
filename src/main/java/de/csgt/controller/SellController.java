@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import de.csgt.ProductLoader;
 import de.csgt.domain.Sell;
 import de.csgt.domain.SellMaterial;
 import de.csgt.service.MaterialServiceInterface;
@@ -29,6 +31,8 @@ public class SellController {
 	
 	@Autowired
 	private SellServiceInterface sellService;
+	
+	private Logger log = Logger.getLogger(ProductLoader.class);
 	
     @RequestMapping(value = "sells", method = RequestMethod.GET)
     public String list(Model model){
@@ -47,19 +51,18 @@ public class SellController {
 	
 	@RequestMapping(value = "sell", method = RequestMethod.POST)
     public String checkPersonInfo(@Valid Sell sell, BindingResult bindingResult, Model model) {
+		log.debug("sell post");
         if (bindingResult.hasErrors()) {
         	System.out.println("bindingResult:" + bindingResult.toString());
         	model.addAttribute("products", productService.listAllProducts());
         	model.addAttribute("sell", sell);
         	model.addAttribute("fields", bindingResult);
-        	System.out.println(sell.toString());
             return "sellform";
         }
         for (SellMaterial setMat : sell.getSellMaterials()) {
 			setMat.setSell(sell);
 		}
         Sell sellSaved = sellService.saveSell(sell);
-        System.out.println("1:" + sellSaved.toString());
         return "redirect:/sell/" + sellSaved.getId();
     }
 	
@@ -87,12 +90,10 @@ public class SellController {
 	
 	@RequestMapping(value="sell", params={"addRow"})
 	public String addRow(final Sell sell, final BindingResult bindingResult, Model model) {
-		System.out.println("AddRow");
 	    List<SellMaterial> sellMaterials = sell.getSellMaterials();
 	    if (sellMaterials == null) {
 	    	sell.setSellMaterials(new ArrayList<SellMaterial>());
 	    }
-	    System.out.println(sell.toString());
 	    sell.getSellMaterials().add(new SellMaterial(sell));
 	    model.addAttribute("products", productService.listAllProducts());
 		model.addAttribute("materials", materialService.listAllMaterials());

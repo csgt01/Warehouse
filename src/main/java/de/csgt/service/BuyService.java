@@ -7,32 +7,40 @@ import org.springframework.stereotype.Service;
 
 import de.csgt.dao.BuyRepository;
 import de.csgt.domain.Buy;
+import de.csgt.domain.Material;
 
 @Service
 public class BuyService implements BuyServiceInterface {
 
 	@Autowired
-	private BuyRepository productRepository;
+	private BuyRepository buyRepository;
 	
 	@Override
 	public Iterable<Buy> listAllBuys() {
-		Iterable<Buy> findAll = productRepository.findAll();
+		Iterable<Buy> findAll = buyRepository.findAllByOrderByBroughtAtDesc();
 		return findAll != null ? findAll : new ArrayList<Buy>();
 	}
 
 	@Override
 	public Buy getBuyById(Long id) {
-		return productRepository.findOne(id);
+		return buyRepository.findOne(id);
 	}
 
 	@Override
 	public Buy saveBuy(Buy product) {
-		return productRepository.save(product);
+		return buyRepository.save(product);
 	}
 
 	@Override
 	public void deleteBuy(Long id) {
-		productRepository.delete(id);
+		buyRepository.delete(id);
+	}
+
+	@Override
+	public Iterable<Buy> listAllBuysByMaterialAndNotSold(Material material) {
+		Iterable<Buy> findByNotSold = buyRepository.findBySoldFalseAndMaterialOrderByBroughtAt(material);
+		
+		return findByNotSold;
 	}
 
 }
