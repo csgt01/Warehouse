@@ -1,9 +1,10 @@
-package de.csgt.controller;
+package de.csgt.service;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -21,22 +22,17 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
-
 import de.csgt.DemoApplication;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
 import de.csgt.domain.Product;
 import de.csgt.domain.Sell;
-import de.csgt.service.BuyServiceInterface;
-import de.csgt.service.MaterialServiceInterface;
-import de.csgt.service.ProductServiceInterface;
-import de.csgt.service.SellServiceInterface;
+import de.csgt.domain.SellMaterial;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = DemoApplication.class)
 @WebAppConfiguration
-public class SellControllerTest {
+public class SellServiceTest {
 
 	@Autowired
 	private ProductServiceInterface productService;
@@ -55,8 +51,14 @@ public class SellControllerTest {
     @Test
     public void tetsTewt() throws Exception {
     	System.out.println("");
-    	Sell sell = new Sell();
-    	
+    	ArrayList<SellMaterial> sellMaterials = new ArrayList<SellMaterial>();
+    	SellMaterial sellMAt1 = new SellMaterial();
+    	sellMAt1.setQuantity(3);
+    	sellMAt1.setMaterial(mat);
+    	sellMaterials.add(sellMAt1);
+		Sell sell = new Sell(1L, new Date(new java.util.Date().getTime()), 1, 2.5, prod, sellMaterials);
+		sellService.saveSell(sell);
+		System.out.println("");
     }
     
     
@@ -89,10 +91,10 @@ public class SellControllerTest {
     	yesterday.setTime(new java.util.Date());
     	yesterday.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH) - 1);
     	
-		Product product = new Product(1, "Schnullerkette", "Schnullerkette Desc", "");
-		productService.saveProduct(product);
+		prod = new Product(1, "Schnullerkette", "Schnullerkette Desc", "");
+		prod = productService.saveProduct(prod);
 		
-		Material mat = new Material(1, "Sicherheitsperle", "weiß", null, 5);
+		mat = new Material(1, "Sicherheitsperle", "weiß", null, 5);
 		mat = materialService.saveMaterial(mat);
 		Date date = new Date(now.getTimeInMillis());
 		Buy buy = new Buy(1L, date, 1, 0, 2.5, false, 0, mat);
@@ -100,5 +102,6 @@ public class SellControllerTest {
 		buy = new Buy(2L, date, 4, 0, 3.5, false, 0, mat);
 		buyService.saveBuy(buy);
     }
-
+    Material mat;
+    Product prod;
 }

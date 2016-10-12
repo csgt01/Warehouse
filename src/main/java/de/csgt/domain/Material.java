@@ -34,7 +34,7 @@ public class Material {
 		super();
 	}
 
-    public Material(Integer id, Calendar createdAt, String name, String description, String imageUrl, Integer available) {
+    public Material(Integer id, String name, String description, String imageUrl, Integer available) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;

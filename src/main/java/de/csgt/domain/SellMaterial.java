@@ -85,7 +85,7 @@ public class SellMaterial {
 
 	@Override
 	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"quantity\":\"" + quantity + "\", \"material\":\"" + material + "\", \"sell\":\"" + sell + "\"}";
+		return "{\"id\":\"" + id + "\", \"quantity\":\"" + quantity + "\", \"material\":\"" + material.getId() + "\"}";
 	}
 	
 

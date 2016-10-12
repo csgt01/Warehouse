@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.csgt.ProductLoader;
 import de.csgt.dao.SellRepository;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
@@ -41,7 +40,9 @@ public class SellService implements SellServiceInterface {
 	@Override
 	@Transactional
 	public Sell saveSell(Sell sell) {
+
 		for (SellMaterial sellMat : sell.getSellMaterials()) {
+			sellMat.setSell(sell);
 			Material material = sellMat.getMaterial();
 			int quantity = sellMat.getQuantity();
 			int tempQuantity = quantity;

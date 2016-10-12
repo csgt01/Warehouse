@@ -37,6 +37,22 @@ public class Buy {
 	
 	private boolean sold = true;
 	private int soldInt = 0;
+	
+	public Buy() {
+		super();
+	}
+
+	public Buy(Long id, Date broughtAt, Integer quantity, Integer tempQuantity, Double price, boolean sold, int soldInt, Material material) {
+		super();
+		this.id = id;
+		this.broughtAt = broughtAt;
+		this.quantity = quantity;
+		this.tempQuantity = tempQuantity;
+		this.price = price;
+		this.sold = sold;
+		this.soldInt = soldInt;
+		this.material = material;
+	}
 
 	@NotNull
 	@ManyToOne

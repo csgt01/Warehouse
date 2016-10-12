@@ -45,6 +45,20 @@ public class Sell {
 	@OneToMany
 	@Cascade(value = {CascadeType.ALL})
 	private List<SellMaterial> sellMaterials;
+	
+	public Sell() {
+		super();
+	}
+
+	public Sell(Long id, Date soldAt, Integer quantity, Double price, Product product, List<SellMaterial> sellMaterials) {
+		super();
+		this.id = id;
+		this.soldAt = soldAt;
+		this.quantity = quantity;
+		this.price = price;
+		this.product = product;
+		this.sellMaterials = sellMaterials;
+	}
 
 	public Long getId() {
 		return id;
@@ -105,7 +119,6 @@ public class Sell {
 	@Override
 	public String toString() {
 		return "{\"id\":\"" + id + "\", "
-				+ "\"createdAt\":\"" + createdAt + "\", "
 				+ "\"soldAt\":\"" + soldAt + "\", "
 				+ "\"quantity\":\"" + quantity + "\", "
 				+ "\"price\":\"" + price + "\", "

@@ -3,6 +3,7 @@ package de.csgt.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -50,8 +51,9 @@ public class SellController {
 	}
 	
 	@RequestMapping(value = "sell", method = RequestMethod.POST)
-    public String checkPersonInfo(@Valid Sell sell, BindingResult bindingResult, Model model) {
-		log.debug("sell post");
+    public String checkPersonInfo(@Valid Sell sell, BindingResult bindingResult, Model model, HttpServletRequest req) {
+		log.info("sell post:" + req.getRequestURL() + " " + req.getQueryString() + " ");
+		log.info("sell post:" + sell.toString());
         if (bindingResult.hasErrors()) {
         	System.out.println("bindingResult:" + bindingResult.toString());
         	model.addAttribute("products", productService.listAllProducts());
@@ -59,9 +61,6 @@ public class SellController {
         	model.addAttribute("fields", bindingResult);
             return "sellform";
         }
-        for (SellMaterial setMat : sell.getSellMaterials()) {
-			setMat.setSell(sell);
-		}
         Sell sellSaved = sellService.saveSell(sell);
         return "redirect:/sell/" + sellSaved.getId();
     }

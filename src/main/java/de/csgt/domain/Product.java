@@ -25,7 +25,7 @@ public class Product {
 		super();
 	}
 
-    public Product(Integer id, Calendar createdAt, String name, String description, String imageUrl) {
+    public Product(Integer id, String name, String description, String imageUrl) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
