@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Framework Guru</title>
+
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+		<h2>Buy Details</h2>
+		<div>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Product:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${sell.product.name}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Preis:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${sell.price}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Anzahl:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${sell.quantity}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Verkaufdatum:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${sell.soldAt}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Materialien:</label>
+				</div>
+				<div class="form-group" th:each="row,rowStat : ${sell.sellMaterials}">
+					<label class="col-sm-2 control-label" th:text="${row.material.name}"></label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${row.quantity}"></p>
+					</div>
+					
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

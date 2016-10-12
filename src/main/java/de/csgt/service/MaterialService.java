@@ -23,8 +23,8 @@ public class MaterialService implements MaterialServiceInterface {
 	}
 
 	@Override
-	public Material saveMaterial(Material product) {
-		return productRepository.save(product);
+	public Material saveMaterial(Material material) {
+		return productRepository.save(material);
 	}
 
 	@Override

@@ -20,8 +20,21 @@ public class Product {
     private String name;
     private String description;
     private String imageUrl;
+    
+    public Product() {
+		super();
+	}
 
-    public String getDescription() {
+    public Product(Integer id, Calendar createdAt, String name, String description, String imageUrl) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.name = name;
+		this.description = description;
+		this.imageUrl = imageUrl;
+	}
+
+	public String getDescription() {
         return description;
     }
 

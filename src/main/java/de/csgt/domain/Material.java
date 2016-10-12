@@ -29,8 +29,22 @@ public class Material {
     
     @OneToMany
     private List<Buy> buys;
+    
+    public Material() {
+		super();
+	}
 
-    public String getDescription() {
+    public Material(Integer id, Calendar createdAt, String name, String description, String imageUrl, Integer available) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.name = name;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.available = available;
+	}
+
+	public String getDescription() {
         return description;
     }
 

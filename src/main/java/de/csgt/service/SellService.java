@@ -70,7 +70,7 @@ public class SellService implements SellServiceInterface {
 					buy.setSold(true);
 					buy.setSoldInt(buy.getQuantity());
 				}
-				Buy saveBuy = buyService.saveBuy(buy);
+				buyService.saveBuy(buy);
 			} 
 			material.setAvailable(material.getAvailable() - quantity);
 			materialService.saveMaterial(material);
