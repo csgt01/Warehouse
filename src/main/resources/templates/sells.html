@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-    <a href="#" th:href="@{/sell/new}">Create Sell</a>
+    <a class="btn btn-large btn-success" href="#" th:href="@{/sell/new}">Create Sell</a>
     <div th:if="${not #lists.isEmpty(sells)}">
         <h2>Sell List</h2>
         <table class="table table-striped">
