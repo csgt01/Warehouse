@@ -43,4 +43,11 @@ public class BuyService implements BuyServiceInterface {
 		return findByNotSold;
 	}
 
+	@Override
+	public Iterable<Buy> listAllBuysByMaterial(Material material) {
+		Iterable<Buy> findByNotSold = buyRepository.findByMaterialOrderByBroughtAt(material);
+		
+		return findByNotSold;
+	}
+
 }

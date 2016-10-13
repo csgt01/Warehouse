@@ -2,6 +2,7 @@ package de.csgt.domain;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class Buy {
@@ -31,8 +35,6 @@ public class Buy {
 	@NotNull
 	private Integer quantity;
 	
-	private Integer tempQuantity = 0;
-	
 	@NotNull
 	private Double price;
 	
@@ -40,6 +42,11 @@ public class Buy {
 	
 	private boolean sold = false;
 	private int soldInt = 0;
+	private Integer tempQuantity = 0;
+	
+	@OneToMany(mappedBy = "buy")
+	@Cascade(value = {CascadeType.ALL})
+	private List<SellBuy> sellbuys;
 	
 	public Buy() {
 		super();
@@ -50,7 +57,6 @@ public class Buy {
 		this.id = id;
 		this.broughtAt = broughtAt;
 		this.quantity = quantity;
-		this.tempQuantity = tempQuantity;
 		this.price = price;
 		this.sold = sold;
 		this.soldInt = soldInt;
@@ -101,21 +107,20 @@ public class Buy {
 		this.broughtAt = broughtAt;
 	}
 
+	public List<SellBuy> getSellBuys() {
+		return sellbuys;
+	}
 
+	public void setSellBuys(List<SellBuy> sellbuys) {
+		this.sellbuys = sellbuys;
+	}
+	
 	public Calendar getCreatedAt() {
 		return createdAt;
 	}
 
 	public void setCreatedAt(Calendar createdAt) {
 		this.createdAt = createdAt;
-	}
-
-	public Integer getTempQuantity() {
-		return tempQuantity;
-	}
-
-	public void setTempQuantity(Integer tempQuantity) {
-		this.tempQuantity = tempQuantity;
 	}
 
 	public boolean isSold() {
@@ -133,10 +138,18 @@ public class Buy {
 	public void setSoldInt(Integer soldInt) {
 		this.soldInt = soldInt;
 	}
+	
+	public Integer getTempQuantity() {
+		return tempQuantity;
+	}
+
+	public void setTempQuantity(Integer tempQuantity) {
+		this.tempQuantity = tempQuantity;
+	}
 
 	@Override
 	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"broughtAt\":\"" + broughtAt + "\", \"quantity\":\"" + quantity + "\", \"tempQuantity\":\"" + tempQuantity + "\", \"price\":\"" + price + "\", \"sold\":\"" + sold
+		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"broughtAt\":\"" + broughtAt + "\", \"quantity\":\"" + quantity + "\", \"price\":\"" + price + "\", \"sold\":\"" + sold
 				+ "\", \"soldInt\":\"" + soldInt + "\", \"material\":\"" + material + "\"}";
 	}
 

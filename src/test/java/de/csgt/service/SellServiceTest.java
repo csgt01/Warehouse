@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import de.csgt.DemoApplication;
+import de.csgt.dao.SellBuyRepository;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
 import de.csgt.domain.Product;
@@ -44,6 +45,13 @@ public class SellServiceTest {
 	@Autowired
 	private SellServiceInterface sellService;
 	
+	@Autowired
+	private SellBuyRepository sellBuyRepo;
+	
+
+    Material mat;
+    Product prod;
+	
     @Before
     public void setup() {
         createTestData();
@@ -60,12 +68,15 @@ public class SellServiceTest {
 		sell = sellService.saveSell(sell);
 		sell.getSellMaterials().get(0).setQuantity(4);
 		sell = sellService.saveSell(sell);
+		mat = materialService.getMaterialById(mat.getId());
+		org.junit.Assert.assertEquals((int)1, (int)mat.getAvailable());
 		System.out.println("");
     }
     
     
     @After
     public void rollBack() {
+    	sellBuyRepo.deleteAll();
     	List<Sell> listAllSells = (List<Sell>) sellService.listAllSells();
     	for (Sell sell : listAllSells) {
 			sellService.deleteSell(sell.getId());
@@ -104,6 +115,4 @@ public class SellServiceTest {
 		Buy buy = new Buy(2L, date, 5, 0, 3.5, false, 0, mat);
 		buyService.saveBuy(buy);
     }
-    Material mat;
-    Product prod;
 }

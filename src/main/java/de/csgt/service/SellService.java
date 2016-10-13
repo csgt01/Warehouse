@@ -13,6 +13,7 @@ import de.csgt.dao.SellRepository;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
 import de.csgt.domain.Sell;
+import de.csgt.domain.SellBuy;
 import de.csgt.domain.SellMaterial;
 
 @Service
@@ -49,38 +50,54 @@ public class SellService implements SellServiceInterface {
 			log.info("quantity" + quantity);
 			log.info("tempQuantity" + tempQuantity);
 			List<Buy> listAllBuysByMaterialAndNotSold = (List<Buy>) buyService.listAllBuysByMaterialAndNotSold(material);
+			if (sell.getSellBuys() != null && sell.getSellBuys().size() > 0) {
+				log.info("sell.getSellBuys() != null && sell.getSellBuys().size() > 0" );
+				for (SellBuy sellBuy : sell.getSellBuys()) {
+					Buy thisBuy = sellBuy.getBuy();
+					thisBuy.setSoldInt(thisBuy.getSoldInt() - sellBuy.getQuantity());
+					thisBuy.setSold(false);
+					Material material2 = thisBuy.getMaterial();
+					material2.setAvailable(material2.getAvailable() + sellBuy.getQuantity());
+					materialService.saveMaterial(material2);
+					buyService.saveBuy(thisBuy);
+				} 
+			}
+			log.info("material:" + material);
+			log.info("material:" + material.getId());
+			material = materialService.getMaterialById(material.getId());
+			sell.setSellBuys(new ArrayList<SellBuy>());
 			for (Buy buy : listAllBuysByMaterialAndNotSold) {
 				log.info("buy:" + buy.getId());
 				log.info("buy.getSoldInt()" + buy.getSoldInt());
 				log.info("buy.getQuantity()" + buy.getQuantity());
-				log.info("buy.getTempQuantity()" + buy.getTempQuantity());
 				log.info("quantity" + quantity);
 				log.info("tempQuantity" + tempQuantity);
-				int buyQuantity = buy.getQuantity() - buy.getSoldInt() +  buy.getTempQuantity();
+				int buyQuantity = buy.getQuantity() - buy.getSoldInt();
 				log.info("buyQuantity:" + buyQuantity);
 				if (buyQuantity > tempQuantity) {
 					log.info("buyQuantity > tempQuantity");
-					buy.setSoldInt(buy.getSoldInt() + tempQuantity -  buy.getTempQuantity());
+					buy.setSold(false);
+					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
 					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
-					material.setAvailable(material.getAvailable() + buy.getTempQuantity());
-					buyService.saveBuy(buy);
+					buy = buyService.saveBuy(buy);
+					sell.getSellBuys().add(new SellBuy(sell, buy, tempQuantity));
 					break;
 				} else if (buyQuantity == tempQuantity) {
 					log.info("buyQuantity == tempQuantity");
 					buy.setSold(true);
-					buy.setSoldInt(buy.getSoldInt() + tempQuantity -  buy.getTempQuantity());
+					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
 					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
-					material.setAvailable(material.getAvailable() + buy.getTempQuantity());
+					sell.getSellBuys().add(new SellBuy(sell, buy, tempQuantity));
 					buyService.saveBuy(buy);
 					break;
 				} else {
 					log.info("buyQuantity < tempQuantity");
-					int toSell = buy.getQuantity() - buy.getSoldInt() + buy.getTempQuantity();
+					int toSell = buy.getQuantity() - buy.getSoldInt();
 					tempQuantity = tempQuantity - toSell;
 					buy.setSold(true);
 					buy.setSoldInt(buy.getQuantity());
 					sell.setTotalCosts(sell.getTotalCosts() + (toSell * buy.getPrice()));
-					material.setAvailable(material.getAvailable() + buy.getTempQuantity());
+					sell.getSellBuys().add(new SellBuy(sell, buy, toSell));
 					buyService.saveBuy(buy);
 				}
 				

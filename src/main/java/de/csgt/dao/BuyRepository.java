@@ -10,4 +10,5 @@ public interface BuyRepository extends CrudRepository<Buy, Long>{
 	Iterable<Buy> findBySoldFalse();
 	Iterable<Buy> findAllByOrderByBroughtAtDesc();
 	Iterable<Buy> findBySoldFalseAndMaterialOrderByBroughtAt(Material material);
+	Iterable<Buy> findByMaterialOrderByBroughtAt(Material material);
 }

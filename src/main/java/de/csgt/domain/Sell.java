@@ -45,9 +45,13 @@ public class Sell {
 	@JoinColumn
 	private Product product;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "sell")
 	@Cascade(value = {CascadeType.ALL})
 	private List<SellMaterial> sellMaterials;
+	
+	@OneToMany(mappedBy = "sell")
+	@Cascade(value = {CascadeType.ALL})
+	private List<SellBuy> sellbuys;
 	
 	public Sell() {
 		super();
@@ -109,6 +113,14 @@ public class Sell {
 
 	public void setSellMaterials(List<SellMaterial> sellMaterials) {
 		this.sellMaterials = sellMaterials;
+	}
+
+	public List<SellBuy> getSellBuys() {
+		return sellbuys;
+	}
+
+	public void setSellBuys(List<SellBuy> sellbuys) {
+		this.sellbuys = sellbuys;
 	}
 
 	public Date getSoldAt() {

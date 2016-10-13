@@ -15,4 +15,6 @@ public interface BuyServiceInterface {
     void deleteBuy(Long id);
     
 	Iterable<Buy> listAllBuysByMaterialAndNotSold(Material material);
+
+	Iterable<Buy> listAllBuysByMaterial(Material material);
 }

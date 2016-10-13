@@ -26,12 +26,12 @@ public class SellMaterial {
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(referencedColumnName = "id")
 	private Material material;
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(referencedColumnName = "id")
 	private Sell sell;
 	
 	public SellMaterial() {

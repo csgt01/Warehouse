@@ -88,6 +88,7 @@
 					        </select>
 					      </td>
 					      <td>
+					      	<input type="hidden" th:field="*{sellMaterials[__${rowStat.index}__].id}"/>
 					        <input type="text" th:field="*{sellMaterials[__${rowStat.index}__].quantity}"/>
 					      </td>
 					    </tr>

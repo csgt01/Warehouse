@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 public class Material {
     @Id
@@ -31,6 +34,18 @@ public class Material {
     @OneToMany
     private List<Buy> buys;
     
+    @OneToMany(mappedBy = "material")
+	@Cascade(value = {CascadeType.ALL})
+	private List<SellMaterial> sellMaterials;
+    
+    public List<SellMaterial> getSellMaterials() {
+		return sellMaterials;
+	}
+
+	public void setSellMaterials(List<SellMaterial> sellMaterials) {
+		this.sellMaterials = sellMaterials;
+	}
+    
     public Material() {
 		super();
 	}
@@ -38,7 +53,6 @@ public class Material {
     public Material(Integer id, String name, String description, String imageUrl, Integer available) {
 		super();
 		this.id = id;
-		this.createdAt = createdAt;
 		this.name = name;
 		this.description = description;
 		this.imageUrl = imageUrl;
@@ -96,10 +110,10 @@ public class Material {
 		return name + ", " + color.getName() + ", " + description;
 	}
 
-	@Override
-	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"name\":\"" + name + "\", \"description\":\"" + description + "\", \"color\":\"" + color.getName() + "\", \"imageUrl\":\"" + imageUrl + "\", \"buys\":\"" + buys + "\"}";
-	}
+//	@Override
+//	public String toString() {
+//		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"name\":\"" + name + "\", \"description\":\"" + description + "\", \"color\":\"" + color.getName() + "\", \"imageUrl\":\"" + imageUrl + "\"}";
+//	}
 
 	public Integer getAvailable() {
 		return available;
