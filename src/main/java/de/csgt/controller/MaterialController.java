@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import de.csgt.domain.Color;
 import de.csgt.domain.Material;
 import de.csgt.service.MaterialServiceInterface;
 
@@ -25,6 +26,7 @@ public class MaterialController {
 	@RequestMapping("material/new")
 	public String newMaterial(Model model) {
 		model.addAttribute("material", new Material());
+		model.addAttribute("colors", Color.values());
 		return "materialform";
 	}
 
@@ -44,6 +46,7 @@ public class MaterialController {
 	public String edit(@PathVariable Integer id, Model model) {
 		System.out.println("" + id + " " + model.toString());
 		model.addAttribute("material", materialService.getMaterialById(id));
+		model.addAttribute("colors", Color.values());
 		return "materialform";
 	}
 

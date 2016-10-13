@@ -28,7 +28,6 @@ public class Sell {
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private Calendar createdAt;
 	
-	@NotNull
 	private Date soldAt;
 
 	@NotNull
@@ -36,6 +35,10 @@ public class Sell {
 	
 	@NotNull
 	private Double price;
+	
+	private Double totalCosts = 0.0;
+	
+	private boolean sold;
 
 	@NotNull
 	@ManyToOne
@@ -84,6 +87,14 @@ public class Sell {
 		this.price = price;
 	}
 
+	public Double getTotalCosts() {
+		return totalCosts;
+	}
+
+	public void setTotalCosts(Double totalCosts) {
+		this.totalCosts = totalCosts;
+	}
+
 	public Calendar getCreatedAt() {
 		return createdAt;
 	}
@@ -116,6 +127,14 @@ public class Sell {
 		this.product = product;
 	}
 
+	public boolean isSold() {
+		return sold;
+	}
+
+	public void setSold(boolean sold) {
+		this.sold = sold;
+	}
+
 	@Override
 	public String toString() {
 		return "{\"id\":\"" + id + "\", "
@@ -123,6 +142,7 @@ public class Sell {
 				+ "\"quantity\":\"" + quantity + "\", "
 				+ "\"price\":\"" + price + "\", "
 				+ "\"product\":\"" + product + "\", "
+				+ "\"sold\":\"" + sold + "\" "
 //				+ "\"sellMaterials\":\"" + sellMaterials != null ? sellMaterials.toString() : ""
 				+ "\"}";
 	}

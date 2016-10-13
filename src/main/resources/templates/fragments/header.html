@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-
+<head lang="de">
 </head>
 <body>
-
-<div class="container">
-    <div th:fragment="header">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#" th:href="@{/products}">Products</a></li>
-                    </ul>
-					<ul class="nav navbar-nav">
-                        <li><a href="#" th:href="@{/materials}">Materials</a></li>
-                    </ul>
-					<ul class="nav navbar-nav">
-                        <li><a href="#" th:href="@{/buys}">Buys</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#" th:href="@{/sells}">Sells</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
+	<div class="container">
+		<div th:fragment="header">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/products}">Produkte</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/materials}">Materialien</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/buys}">Käufe</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/sells}">Verkäufe</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
 </body>
 </html>

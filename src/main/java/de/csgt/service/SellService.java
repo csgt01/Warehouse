@@ -52,26 +52,38 @@ public class SellService implements SellServiceInterface {
 			for (Buy buy : listAllBuysByMaterialAndNotSold) {
 				log.info("buy:" + buy.getId());
 				log.info("buy.getSoldInt()" + buy.getSoldInt());
+				log.info("buy.getQuantity()" + buy.getQuantity());
+				log.info("buy.getTempQuantity()" + buy.getTempQuantity());
 				log.info("quantity" + quantity);
 				log.info("tempQuantity" + tempQuantity);
-				int buyQuantity = buy.getQuantity() - buy.getSoldInt();
+				int buyQuantity = buy.getQuantity() - buy.getSoldInt() +  buy.getTempQuantity();
+				log.info("buyQuantity:" + buyQuantity);
 				if (buyQuantity > tempQuantity) {
 					log.info("buyQuantity > tempQuantity");
-					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
+					buy.setSoldInt(buy.getSoldInt() + tempQuantity -  buy.getTempQuantity());
+					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
+					material.setAvailable(material.getAvailable() + buy.getTempQuantity());
+					buyService.saveBuy(buy);
 					break;
 				} else if (buyQuantity == tempQuantity) {
 					log.info("buyQuantity == tempQuantity");
 					buy.setSold(true);
-					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
+					buy.setSoldInt(buy.getSoldInt() + tempQuantity -  buy.getTempQuantity());
+					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
+					material.setAvailable(material.getAvailable() + buy.getTempQuantity());
+					buyService.saveBuy(buy);
 					break;
 				} else {
 					log.info("buyQuantity < tempQuantity");
-					int toSell = buy.getQuantity() - buy.getSoldInt();
+					int toSell = buy.getQuantity() - buy.getSoldInt() + buy.getTempQuantity();
 					tempQuantity = tempQuantity - toSell;
 					buy.setSold(true);
 					buy.setSoldInt(buy.getQuantity());
+					sell.setTotalCosts(sell.getTotalCosts() + (toSell * buy.getPrice()));
+					material.setAvailable(material.getAvailable() + buy.getTempQuantity());
+					buyService.saveBuy(buy);
 				}
-				buyService.saveBuy(buy);
+				
 			} 
 			material.setAvailable(material.getAvailable() - quantity);
 			materialService.saveMaterial(material);

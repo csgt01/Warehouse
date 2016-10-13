@@ -22,6 +22,7 @@ public class Material {
     
 	private String name;
     private String description;
+    private Color color;
     private String imageUrl;
     
     @Min(0)
@@ -90,10 +91,14 @@ public class Material {
 	public void setBuys(List<Buy> buys) {
 		this.buys = buys;
 	}
+	
+	public String getDisplayName() {
+		return name + ", " + color.getName() + ", " + description;
+	}
 
 	@Override
 	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"name\":\"" + name + "\", \"description\":\"" + description + "\", \"imageUrl\":\"" + imageUrl + "\", \"buys\":\"" + buys + "\"}";
+		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"name\":\"" + name + "\", \"description\":\"" + description + "\", \"color\":\"" + color.getName() + "\", \"imageUrl\":\"" + imageUrl + "\", \"buys\":\"" + buys + "\"}";
 	}
 
 	public Integer getAvailable() {
@@ -102,6 +107,14 @@ public class Material {
 
 	public void setAvailable(Integer available) {
 		this.available = available;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 }

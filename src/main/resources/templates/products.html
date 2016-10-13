@@ -9,25 +9,21 @@
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-    <a class="btn btn-large btn-success" href="#" th:href="@{/product/new}">Create Product</a>
+    <a class="btn btn-large btn-success" href="#" th:href="@{/product/new}">Produkt erstellen</a>
     <div th:if="${not #lists.isEmpty(products)}">
-        <h2>Product List</h2>
+        <h2>Produkte</h2>
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Description</th>
-                <th>View</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Beschreibung</th>
+                <th>Aktionen</th>
             </tr>
             <tr th:each="product : ${products}">
                 <td th:text="${product.id}"><a href="/product/${product.id}">Id</a></td>
                 <td th:text="${product.name}">descirption</td>
                 <td th:text="${product.description}">descirption</td>
-                <td><a th:href="${'/product/' + product.id}">View</a></td>
-                <td><a th:href="${'/product/edit/' + product.id}">Edit</a></td>
-                <td><a th:href="${'/product/delete/' + product.id}">Delete</a></td>
+                <td><a class="btn btn-sm btn-info" th:href="${'/product/' + product.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/product/' + product.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/product/delete/' + product.id}">Löschen</a></td>
             </tr>
         </table>
 

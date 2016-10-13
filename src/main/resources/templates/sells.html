@@ -9,27 +9,27 @@
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-    <a class="btn btn-large btn-success" href="#" th:href="@{/sell/new}">Create Sell</a>
+    <a class="btn btn-large btn-success" href="#" th:href="@{/sell/new}">Verkauf erstellen</a>
     <div th:if="${not #lists.isEmpty(sells)}">
-        <h2>Sell List</h2>
+        <h2>Verkäufe</h2>
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Brought at</th>
-                <th>View</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Einzelpreis</th>
+                <th>Einzelkosten</th>
+                <th>Anzahl</th>
+                <th>Verkauft</th>
+                <th>Verkauft am</th>
+                <th>Aktionen</th>
             </tr>
             <tr th:each="sell : ${sells}">
                 <td th:text="${sell.id}"><a href="/sell/${sell.id}">Id</a></td>
                 <td th:text="${sell.price}">descirption</td>
+                <td th:text="${sell.totalCosts}">descirption</td>
                 <td th:text="${sell.quantity}">quantity</td>
+                <td th:text="${sell.sold}">descirption</td>
                 <td th:text="${sell.soldAt}">descirption</td>
-                <td><a th:href="${'/sell/' + sell.id}">View</a></td>
-                <td><a th:href="${'/sell/edit/' + sell.id}">Edit</a></td>
-                <td><a th:href="${'/sell/delete/' + sell.id}">Delete</a></td>
+               <td><a class="btn btn-sm btn-info" th:href="${'/sell/' + sell.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/sell/edit/' + sell.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/sell/delete/' + sell.id}">Löschen</a></td>
             </tr>
         </table>
 

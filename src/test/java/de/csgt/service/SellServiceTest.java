@@ -57,7 +57,9 @@ public class SellServiceTest {
     	sellMAt1.setMaterial(mat);
     	sellMaterials.add(sellMAt1);
 		Sell sell = new Sell(1L, new Date(new java.util.Date().getTime()), 1, 2.5, prod, sellMaterials);
-		sellService.saveSell(sell);
+		sell = sellService.saveSell(sell);
+		sell.getSellMaterials().get(0).setQuantity(4);
+		sell = sellService.saveSell(sell);
 		System.out.println("");
     }
     
@@ -97,9 +99,9 @@ public class SellServiceTest {
 		mat = new Material(1, "Sicherheitsperle", "weiß", null, 5);
 		mat = materialService.saveMaterial(mat);
 		Date date = new Date(now.getTimeInMillis());
-		Buy buy = new Buy(1L, date, 1, 0, 2.5, false, 0, mat);
-		buyService.saveBuy(buy);
-		buy = new Buy(2L, date, 4, 0, 3.5, false, 0, mat);
+//		Buy buy = new Buy(1L, date, 1, 0, 2.5, false, 0, mat);
+//		buyService.saveBuy(buy);
+		Buy buy = new Buy(2L, date, 5, 0, 3.5, false, 0, mat);
 		buyService.saveBuy(buy);
     }
     Material mat;

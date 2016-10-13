@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -29,13 +31,14 @@ public class Buy {
 	@NotNull
 	private Integer quantity;
 	
-	@Transient
 	private Integer tempQuantity = 0;
 	
 	@NotNull
 	private Double price;
 	
-	private boolean sold = true;
+	private Double totalPrice;
+	
+	private boolean sold = false;
 	private int soldInt = 0;
 	
 	public Buy() {
@@ -135,6 +138,21 @@ public class Buy {
 	public String toString() {
 		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"broughtAt\":\"" + broughtAt + "\", \"quantity\":\"" + quantity + "\", \"tempQuantity\":\"" + tempQuantity + "\", \"price\":\"" + price + "\", \"sold\":\"" + sold
 				+ "\", \"soldInt\":\"" + soldInt + "\", \"material\":\"" + material + "\"}";
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	@PrePersist
+	@PreUpdate
+	public void setTotal() {
+		totalPrice = price * quantity;
+		tempQuantity = soldInt;
 	}
 	
 }
