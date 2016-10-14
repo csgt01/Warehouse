@@ -44,6 +44,11 @@ public class Buy {
 	private int soldInt = 0;
 	private Integer tempQuantity = 0;
 	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id")
+	private Assignment assignment;
+	
 	@OneToMany(mappedBy = "buy")
 	@Cascade(value = {CascadeType.ALL})
 	private List<SellBuy> sellbuys;

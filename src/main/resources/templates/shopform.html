@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <h2>Shop erstellen</h2>
+    <div>
+        <form class="form-horizontal" th:object="${shop}" th:action="@{/shop}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+          	<div class="form-group">
+                <label class="col-sm-2 control-label">Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{name}" />
+                    <ul>
+					  <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
+					</ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">PLZ:</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" th:field="*{postCode}"/>
+                    <ul>
+					  <li th:each="err : ${#fields.errors('postCode')}" th:text="${err}" />
+					</ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Stadt:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{city}"/>
+                    <ul>
+					  <li th:each="err : ${#fields.errors('city')}" th:text="${err}" />
+					</ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Stadt:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{street}"/>
+                    <ul>
+					  <li th:each="err : ${#fields.errors('street')}" th:text="${err}" />
+					</ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hausnummer:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{streetNumber}"/>
+                    <ul>
+					  <li th:each="err : ${#fields.errors('streetNumber')}" th:text="${err}" />
+					</ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
