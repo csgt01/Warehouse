@@ -1,8 +1,5 @@
 package de.csgt.service;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,13 +11,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 
 import de.csgt.DemoApplication;
 import de.csgt.dao.SellBuyRepository;
@@ -30,6 +24,7 @@ import de.csgt.domain.Product;
 import de.csgt.domain.Sell;
 import de.csgt.domain.SellMaterial;
 
+@SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = DemoApplication.class)
 @WebAppConfiguration

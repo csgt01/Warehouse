@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.csgt.dao.SellBuyRepository;
 import de.csgt.dao.SellRepository;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
@@ -21,6 +22,8 @@ public class SellService implements SellServiceInterface {
 
 	@Autowired
 	private SellRepository sellRepository;
+	@Autowired
+	private SellBuyRepository sellBuyRepository;
 	@Autowired
 	private MaterialService materialService;
 	@Autowired
@@ -41,7 +44,29 @@ public class SellService implements SellServiceInterface {
 	@Override
 	@Transactional
 	public Sell saveSell(Sell sell) {
-
+		List<SellBuy> sellBuys;
+		if (sell.getId() == null) {
+			sellBuys = new ArrayList<SellBuy>();
+		} else {
+			sellBuys = sellBuyRepository.findBySell(sell);
+		}
+		sell.setSellBuys(sellBuys);
+		if (sellBuys != null && sellBuys.size() > 0) {
+			log.info("sell.getSellBuys() != null && sell.getSellBuys().size() > 0" );
+			for (SellBuy sellBuy : sellBuys) {
+				Buy thisBuy = sellBuy.getBuy();
+				thisBuy.setSoldInt(thisBuy.getSoldInt() - sellBuy.getQuantity());
+				thisBuy.setSold(false);
+				Material material2 = materialService.getMaterialById(thisBuy.getMaterial().getId());
+				material2.setAvailable(material2.getAvailable() + sellBuy.getQuantity());
+				material2 = materialService.saveMaterial(material2);
+				log.info("material2 available:" + material2.getAvailable());
+				sellBuyRepository.delete(sellBuy.getId());
+				buyService.saveBuy(thisBuy);
+				
+			} 
+		}
+		sellBuys = new ArrayList<SellBuy>();
 		for (SellMaterial sellMat : sell.getSellMaterials()) {
 			sellMat.setSell(sell);
 			Material material = sellMat.getMaterial();
@@ -49,22 +74,14 @@ public class SellService implements SellServiceInterface {
 			int tempQuantity = quantity;
 			log.info("quantity" + quantity);
 			log.info("tempQuantity" + tempQuantity);
+			log.info("tempQuantity" + tempQuantity);
 			List<Buy> listAllBuysByMaterialAndNotSold = (List<Buy>) buyService.listAllBuysByMaterialAndNotSold(material);
-			if (sell.getSellBuys() != null && sell.getSellBuys().size() > 0) {
-				log.info("sell.getSellBuys() != null && sell.getSellBuys().size() > 0" );
-				for (SellBuy sellBuy : sell.getSellBuys()) {
-					Buy thisBuy = sellBuy.getBuy();
-					thisBuy.setSoldInt(thisBuy.getSoldInt() - sellBuy.getQuantity());
-					thisBuy.setSold(false);
-					Material material2 = thisBuy.getMaterial();
-					material2.setAvailable(material2.getAvailable() + sellBuy.getQuantity());
-					materialService.saveMaterial(material2);
-					buyService.saveBuy(thisBuy);
-				} 
+			if (sellBuys != null) {
+				log.info("SellBuys size:" + sellBuys.size());
 			}
-			log.info("material:" + material);
-			log.info("material:" + material.getId());
+			
 			material = materialService.getMaterialById(material.getId());
+			log.info("material available:" + material.getAvailable());
 			sell.setSellBuys(new ArrayList<SellBuy>());
 			for (Buy buy : listAllBuysByMaterialAndNotSold) {
 				log.info("buy:" + buy.getId());
@@ -80,14 +97,14 @@ public class SellService implements SellServiceInterface {
 					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
 					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
 					buy = buyService.saveBuy(buy);
-					sell.getSellBuys().add(new SellBuy(sell, buy, tempQuantity));
+					sellBuys.add(new SellBuy(sell, buy, tempQuantity));
 					break;
 				} else if (buyQuantity == tempQuantity) {
 					log.info("buyQuantity == tempQuantity");
 					buy.setSold(true);
 					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
 					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
-					sell.getSellBuys().add(new SellBuy(sell, buy, tempQuantity));
+					sellBuys.add(new SellBuy(sell, buy, tempQuantity));
 					buyService.saveBuy(buy);
 					break;
 				} else {
@@ -97,7 +114,7 @@ public class SellService implements SellServiceInterface {
 					buy.setSold(true);
 					buy.setSoldInt(buy.getQuantity());
 					sell.setTotalCosts(sell.getTotalCosts() + (toSell * buy.getPrice()));
-					sell.getSellBuys().add(new SellBuy(sell, buy, toSell));
+					sellBuys.add(new SellBuy(sell, buy, toSell));
 					buyService.saveBuy(buy);
 				}
 				
@@ -106,7 +123,10 @@ public class SellService implements SellServiceInterface {
 			materialService.saveMaterial(material);
 			
 		}
-		return sellRepository.save(sell);
+		sell.setSellBuys(sellBuys);
+		sell = sellRepository.save(sell);
+		log.info("SellBuys size:" + sell.getSellBuys().size());
+		return sell;
 	}
 
 	@Override

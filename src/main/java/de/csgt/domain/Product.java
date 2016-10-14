@@ -28,7 +28,6 @@ public class Product {
     public Product(Integer id, String name, String description, String imageUrl) {
 		super();
 		this.id = id;
-		this.createdAt = createdAt;
 		this.name = name;
 		this.description = description;
 		this.imageUrl = imageUrl;
