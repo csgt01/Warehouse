@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <a class="btn btn-large btn-success" href="#" th:href="@{/assignment/new}">Auftrag erstellen</a>
+    <div th:if="${not #lists.isEmpty(assignments)}">
+        <h2>Aufträge</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Kaufdatum</th>
+                <th>Abgeschlossen</th>
+                <th>Aktionen</th>
+            </tr>
+            <tr th:each="assignment : ${assignments}">
+                <td th:text="${assignment.id}"><a href="/assignment/${assignment.id}">Id</a></td>
+                <td th:text="${assignment.orderedAt}">descirption</td>
+                <td th:text="${assignment.closed}">descirption</td>
+                <td><a class="btn btn-sm btn-info" th:href="${'/assignment/' + assignment.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/assignment/' + assignment.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/assignment/delete/' + assignment.id}">Löschen</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
