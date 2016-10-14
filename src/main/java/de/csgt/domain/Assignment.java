@@ -64,10 +64,6 @@ public class Assignment {
 		return p;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
 	public Date getOrderedAt() {
 		return orderedAt;
 	}
