@@ -16,12 +16,16 @@
             <tr>
                 <th>Id</th>
                 <th>Kaufdatum</th>
-                <th>Abgeschlossen</th>
+                <th>Shop</th>
+                <th>Gesamtpreis</th>
+                <th>Shop</th>
                 <th>Aktionen</th>
             </tr>
             <tr th:each="assignment : ${assignments}">
                 <td th:text="${assignment.id}"><a href="/assignment/${assignment.id}">Id</a></td>
                 <td th:text="${assignment.orderedAt}">descirption</td>
+                <td th:text="${assignment.shop.name}">descirption</td>
+                <td th:text="${assignment.price}">descirption</td>
                 <td th:text="${assignment.closed}">descirption</td>
                 <td><a class="btn btn-sm btn-info" th:href="${'/assignment/' + assignment.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/assignment/' + assignment.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/assignment/delete/' + assignment.id}">Löschen</a></td>
             </tr>

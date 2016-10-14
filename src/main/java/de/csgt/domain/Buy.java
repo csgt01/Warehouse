@@ -48,26 +48,6 @@ public class Buy {
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id")
 	private Assignment assignment;
-	
-	public Assignment getAssignment() {
-		return assignment;
-	}
-
-	public void setAssignment(Assignment assignment) {
-		this.assignment = assignment;
-	}
-
-	public List<SellBuy> getSellbuys() {
-		return sellbuys;
-	}
-
-	public void setSellbuys(List<SellBuy> sellbuys) {
-		this.sellbuys = sellbuys;
-	}
-
-	public void setSoldInt(int soldInt) {
-		this.soldInt = soldInt;
-	}
 
 	@OneToMany(mappedBy = "buy")
 	@Cascade(value = {CascadeType.ALL})
@@ -171,11 +151,25 @@ public class Buy {
 	public void setTempQuantity(Integer tempQuantity) {
 		this.tempQuantity = tempQuantity;
 	}
+	
+	public Assignment getAssignment() {
+		return assignment;
+	}
 
-	@Override
-	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createdAt\":\"" + createdAt + "\", \"broughtAt\":\"" + broughtAt + "\", \"quantity\":\"" + quantity + "\", \"price\":\"" + price + "\", \"sold\":\"" + sold
-				+ "\", \"soldInt\":\"" + soldInt + "\", \"material\":\"" + material + "\"}";
+	public void setAssignment(Assignment assignment) {
+		this.assignment = assignment;
+	}
+
+	public List<SellBuy> getSellbuys() {
+		return sellbuys;
+	}
+
+	public void setSellbuys(List<SellBuy> sellbuys) {
+		this.sellbuys = sellbuys;
+	}
+
+	public void setSoldInt(int soldInt) {
+		this.soldInt = soldInt;
 	}
 
 	public Double getTotalPrice() {
