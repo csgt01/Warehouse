@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
+import de.csgt.service.AssignmentServiceInterface;
 import de.csgt.service.BuyServiceInterface;
 import de.csgt.service.MaterialServiceInterface;
-import de.csgt.service.ShopServiceInterface;
 
 @Controller
 public class BuyController {
@@ -25,7 +25,7 @@ public class BuyController {
 	@Autowired
 	private BuyServiceInterface buyService;
 	@Autowired
-	private ShopServiceInterface shopService;
+	private AssignmentServiceInterface assingmentService;
 	
     @RequestMapping(value = "buys", method = RequestMethod.GET)
     public String list(Model model){
@@ -38,7 +38,7 @@ public class BuyController {
 		Buy buy = new Buy();
 		model.addAttribute("buy", buy);
 		model.addAttribute("materials", materialService.listAllMaterials());
-		model.addAttribute("shops", shopService.listAllShops());
+		model.addAttribute("assignments", assingmentService.listAllAssignmentsByNotClosed());
 		return "buyform";
 	}
 	
@@ -47,7 +47,7 @@ public class BuyController {
         if (bindingResult.hasErrors()) {
 //        	System.out.println("bindingResult:" + bindingResult.toString());
         	model.addAttribute("materials", materialService.listAllMaterials());
-    		model.addAttribute("shops", shopService.listAllShops());
+    		model.addAttribute("assignments", assingmentService.listAllAssignmentsByNotClosed());
         	model.addAttribute("buy", buy);
         	model.addAttribute("fields", bindingResult);
             return "buyform";
@@ -74,7 +74,7 @@ public class BuyController {
 		buyById.setTempQuantity(buyById.getQuantity());
 		model.addAttribute("buy", buyById);
 		model.addAttribute("materials", materialService.listAllMaterials());
-		model.addAttribute("shops", shopService.listAllShops());
+		model.addAttribute("assignments", assingmentService.listAllAssignmentsByNotClosed());
 		return "buyform";
 	}
 

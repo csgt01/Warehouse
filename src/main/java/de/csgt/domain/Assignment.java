@@ -23,6 +23,7 @@ public class Assignment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	private String orderNumber;
 
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private Calendar createdAt;
@@ -31,6 +32,8 @@ public class Assignment {
 	private Date orderedAt;
 
 	private Double price;
+	
+	private boolean closed = false;
 	
 	@NotNull
 	@ManyToOne
@@ -54,7 +57,13 @@ public class Assignment {
 	}
 
 	public Double getPrice() {
-		return price;
+		double p = 0.0;
+		if (buys != null) {
+			for (Buy buy : buys) {
+				p += buy.getTotalPrice();
+			}
+		}
+		return p;
 	}
 
 	public void setPrice(Double price) {
@@ -91,6 +100,22 @@ public class Assignment {
 
 	public void setBuys(List<Buy> buys) {
 		this.buys = buys;
+	}
+
+	public boolean isClosed() {
+		return closed;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 	
 }
