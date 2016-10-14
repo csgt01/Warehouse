@@ -31,8 +31,6 @@ public class Assignment {
 	@NotNull
 	private Date orderedAt;
 
-	private Double price;
-	
 	private boolean closed = false;
 	
 	@NotNull
