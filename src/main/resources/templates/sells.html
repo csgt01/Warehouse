@@ -29,7 +29,8 @@
                 <td th:text="${sell.quantity}">quantity</td>
                 <td th:text="${sell.sold}">descirption</td>
                 <td th:text="${sell.soldAt}">descirption</td>
-               <td><a class="btn btn-sm btn-info" th:href="${'/sell/' + sell.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/sell/edit/' + sell.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/sell/delete/' + sell.id}">Löschen</a></td>
+               <td><a class="btn btn-sm btn-info" th:href="${'/sell/' + sell.id}">Anzeigen</a>  
+               <a class="btn btn-sm btn-default" th:href="${'/sell/edit/' + sell.id}">Editieren</a></td>
             </tr>
         </table>
 

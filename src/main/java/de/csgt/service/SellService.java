@@ -25,9 +25,9 @@ public class SellService implements SellServiceInterface {
 	@Autowired
 	private SellBuyRepository sellBuyRepository;
 	@Autowired
-	private MaterialService materialService;
+	private MaterialServiceInterface materialService;
 	@Autowired
-	private BuyService buyService;
+	private BuyServiceInterface buyService;
 	private Logger log = Logger.getLogger(SellService.class);
 	
 	@Override

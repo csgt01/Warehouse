@@ -23,7 +23,8 @@
                 <td th:text="${product.id}"><a href="/product/${product.id}">Id</a></td>
                 <td th:text="${product.name}">descirption</td>
                 <td th:text="${product.description}">descirption</td>
-                <td><a class="btn btn-sm btn-info" th:href="${'/product/' + product.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/product/' + product.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/product/delete/' + product.id}">Löschen</a></td>
+                <td><a class="btn btn-sm btn-info" th:href="${'/product/' + product.id}">Anzeigen</a>  
+                <a class="btn btn-sm btn-default" th:href="${'/product/' + product.id}">Editieren</a> </td>
             </tr>
         </table>
 

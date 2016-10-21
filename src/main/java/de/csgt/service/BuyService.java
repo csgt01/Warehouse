@@ -2,6 +2,8 @@ package de.csgt.service;
 
 import java.util.ArrayList;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class BuyService implements BuyServiceInterface {
 
 	@Autowired
 	private BuyRepository buyRepository;
+	
+	@Autowired
+	private MaterialServiceInterface materialService;
 	
 	@Override
 	public Iterable<Buy> listAllBuys() {
@@ -32,7 +37,11 @@ public class BuyService implements BuyServiceInterface {
 	}
 
 	@Override
+	@Transactional
 	public void deleteBuy(Long id) {
+		Buy buy = getBuyById(id);
+		Material material = materialService.getMaterialById(buy.getMaterial().getId());
+		material.setAvailable(material.getAvailable() + buy.getSoldInt() - buy.getQuantity());
 		buyRepository.delete(id);
 	}
 
@@ -49,5 +58,5 @@ public class BuyService implements BuyServiceInterface {
 		
 		return findByNotSold;
 	}
-
+	
 }

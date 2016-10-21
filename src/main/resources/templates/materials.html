@@ -27,7 +27,8 @@
                 <td th:text="${material.color.name}">name</td>
                 <td th:text="${material.description}">descirption</td>
                 <td th:text="${material.available}">descirption</td>
-                <td><a class="btn btn-sm btn-info" th:href="${'/material/' + material.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/material/edit/' + material.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/material/delete/' + material.id}">Löschen</a></td>
+                <td><a class="btn btn-sm btn-info" th:href="${'/material/' + material.id}">Anzeigen</a>  
+                <a class="btn btn-sm btn-default" th:href="${'/material/edit/' + material.id}">Editieren</a></td>
             </tr>
         </table>
 

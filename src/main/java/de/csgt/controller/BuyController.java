@@ -83,4 +83,5 @@ public class BuyController {
 		buyService.deleteBuy(id);
 		return "redirect:/buys";
 	}
+
 }
