@@ -99,4 +99,16 @@ public class SellController {
 		model.addAttribute("sell", sell);
 	    return "sellform";
 	}
+
+	
+	@RequestMapping(value="sell", params={"removeRow"})
+	public String removeRow(final Sell sell, final BindingResult bindingResult, Model model, final HttpServletRequest req) {
+		int parameter = Integer.valueOf(req.getParameter("removeRow"));
+		log.info("remove:" + parameter);
+	    sell.getSellMaterials().remove((int) parameter);
+	    model.addAttribute("products", productService.listAllProducts());
+		model.addAttribute("materials", materialService.listAllMaterials());
+		model.addAttribute("sell", sell);
+	    return "sellform";
+	}
 }

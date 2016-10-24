@@ -10,8 +10,14 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-    <h2>Kauf erstellen</h2>
+    <h2>Verkauf erstellen</h2>
     <div>
+    	<ul>
+		  <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+		</ul>
+		<div th:if="${#fields.hasGlobalErrors()}">
+  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+</div>
         <form class="form-horizontal" th:object="${sell}" th:action="@{/sell}" method="post">
             <input type="hidden" th:field="*{id}"/>
             <div class="row">
@@ -90,6 +96,9 @@
 					      <td>
 					      	<input type="hidden" th:field="*{sellMaterials[__${rowStat.index}__].id}"/>
 					        <input type="text" th:field="*{sellMaterials[__${rowStat.index}__].quantity}"/>
+					      </td>
+					      <td>
+					      	<button type="submit" name="removeRow" th:value="${rowStat.index}" >Remove row</button>
 					      </td>
 					    </tr>
 					  </tbody>

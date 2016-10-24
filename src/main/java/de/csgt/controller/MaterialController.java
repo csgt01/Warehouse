@@ -72,6 +72,8 @@ public class MaterialController {
 						buyService.saveBuy(buy);
 					}
 				}
+			} else if (difference < 0) {
+				throw new RuntimeException("Nur weniger als vorher!");
 			}
 		}
 		materialService.saveMaterial(material);
