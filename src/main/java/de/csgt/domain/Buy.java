@@ -29,7 +29,6 @@ public class Buy {
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private Calendar createdAt;
 	
-	@NotNull
 	private Date broughtAt;
 
 	@NotNull

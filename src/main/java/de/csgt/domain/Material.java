@@ -26,6 +26,7 @@ public class Material {
 	private String name;
     private String description;
     private Color color;
+    private Double size;
     private String imageUrl;
     
     @Min(0)
@@ -129,6 +130,14 @@ public class Material {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public Double getSize() {
+		return size;
+	}
+
+	public void setSize(Double size) {
+		this.size = size;
 	}
 	
 }

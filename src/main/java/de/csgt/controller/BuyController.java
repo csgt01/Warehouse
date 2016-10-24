@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import de.csgt.domain.Assignment;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
 import de.csgt.service.AssignmentServiceInterface;
@@ -52,7 +53,8 @@ public class BuyController {
         	model.addAttribute("fields", bindingResult);
             return "buyform";
         }
-        System.out.println(buy.toString());
+        Assignment ass = assingmentService.getAssignmentById(buy.getAssignment().getId());
+        buy.setBroughtAt(ass.getOrderedAt());
         Material mat = buy.getMaterial();
         mat.setAvailable(mat.getAvailable() - buy.getTempQuantity() + buy.getQuantity());
         Material saveMaterial = materialService.saveMaterial(mat);
