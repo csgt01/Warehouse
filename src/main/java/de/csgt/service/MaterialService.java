@@ -14,6 +14,7 @@ public interface MaterialService {
 	Iterable<Material> listAllMaterials();
 	
 	Page<Material> listAllMaterialsPage(PageRequest pageable);
+	Page<Material> listAllMaterialsPage(PageRequest pageable, Search search);
 
     Material getMaterialById(Integer id);
 

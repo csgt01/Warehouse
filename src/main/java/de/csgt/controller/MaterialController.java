@@ -40,8 +40,9 @@ public class MaterialController {
     }
 	
 	@RequestMapping(value = "/material/search", method = RequestMethod.POST)
-    public String search(@ModelAttribute("search") Search search, Model model){
-        model.addAttribute("materials", materialService.listAllMaterials(search));
+    public String search(@ModelAttribute("search") Search search, Model model, Pageable pageable){
+		PageRequest req = new PageRequest(pageable.getPageNumber(), 5);
+        model.addAttribute("page", materialService.listAllMaterialsPage(req, search));
         model.addAttribute("colors", Color.values());
         model.addAttribute("search", search);
         return "materials";

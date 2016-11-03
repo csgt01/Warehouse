@@ -60,4 +60,10 @@ public class MaterialServiceImpl implements MaterialService {
 		return findAll;
 	}
 
+	@Override
+	public Page<Material> listAllMaterialsPage(PageRequest pageable, Search search) {
+		Page<Material> findByColor = materialRepository.findByColor(search.getColor(), pageable);
+		return findByColor;
+	}
+
 }

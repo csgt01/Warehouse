@@ -12,4 +12,5 @@ import de.csgt.domain.Material;
 public interface MaterialRepository extends CrudRepository<Material, Integer>{
 	Page<Material> findAll(Pageable pageable);
 	List<Material> findByColor(Color color);
+	Page<Material> findByColor(Color color, Pageable pageable);
 }
