@@ -3,6 +3,9 @@ package de.csgt.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,8 +30,10 @@ public class MaterialController {
 	private BuyService buyService;
 
 	@RequestMapping(value = "/materials", method = RequestMethod.GET)
-    public String list(Model model){
-        model.addAttribute("materials", materialService.listAllMaterials());
+    public String list(Model model, Pageable pageable) {
+		PageRequest req = new PageRequest(pageable.getPageNumber(), 5);
+		Page<Material> pag = materialService.listAllMaterialsPage(req);
+        model.addAttribute("page", pag);
         model.addAttribute("colors", Color.values());
         model.addAttribute("search", new Search());
         return "materials";

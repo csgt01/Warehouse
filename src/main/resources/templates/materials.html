@@ -34,8 +34,34 @@
 					</table>
 				</fieldset>
 			</form>	
+			
+			<!-- Pagination Bar -->
+<div th:fragment="paginationbar">
+  <div class="table-pagination">
+    <ul class="pagination">
+        <li th:class="${page.number eq 0} ? 'disabled' : ''">
+            <a th:if="${not page.first}" th:href="@{${'/materials'}(page=${page.number-1},size=${page.size})}">Previous</a>
+            <a th:if="${page.first}" href="javascript:void(0);">Previous</a>
+        </li>
+
+        <li th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}" th:class="${page.number eq pageNo}? 'active' : ''">
+            <a th:if="${page.number  eq pageNo}" href="javascript:void(0);">
+                <span th:text="${pageNo + 1}"></span>
+            </a>
+            <a th:if="${not (page.number  eq pageNo)}" th:href="@{${'/materials'}(page=${pageNo},size=${page.size})}">
+                <span th:text="${pageNo + 1}"></span>
+            </a>
+
+        </li>
+        <li th:class="${page.number + 1 ge page.totalPages} ? 'disabled' : ''">
+            <a th:if="${not page.last}" th:href="@{${'/materials'}(page=${page.number+1},size=${page.size})}">Next</a>
+            <a th:if="${page.last}" href="javascript:void(0);">Next</a>
+        </li>
+    </ul>
+  </div>
+</div>
     
-    <div th:if="${not #lists.isEmpty(materials)}">
+    <div th:if="${not #lists.isEmpty(page.content)}">
         <h2>Materialien</h2>
         <table class="table table-striped">
             <tr>
@@ -46,7 +72,7 @@
                 <th>Verfügbar</th>
                 <th>Aktionen</th>
             </tr>
-            <tr th:each="material : ${materials}">
+            <tr th:each="material : ${page.content}">
                 <td th:text="${material.id}"><a href="/material/${material.id}">Id</a></td>
                 <td th:text="${material.name}">name</td>
                 <td th:text="${material.color.name}">name</td>
