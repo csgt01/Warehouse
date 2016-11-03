@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import de.csgt.ProductLoader;
+import de.csgt.MaterialLoader;
 import de.csgt.domain.Sell;
 import de.csgt.domain.SellMaterial;
 import de.csgt.service.MaterialServiceInterface;
@@ -33,7 +33,7 @@ public class SellController {
 	@Autowired
 	private SellServiceInterface sellService;
 	
-	private Logger log = Logger.getLogger(ProductLoader.class);
+	private Logger log = Logger.getLogger(MaterialLoader.class);
 	
     @RequestMapping(value = "sells", method = RequestMethod.GET)
     public String list(Model model){

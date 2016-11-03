@@ -51,7 +51,17 @@ public class Material {
 		super();
 	}
 
-    public Material(Integer id, String name, String description, String imageUrl, Integer available) {
+    public Material(Integer id, String name, String description, Color color, Double size, Integer available) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.color = color;
+		this.size = size;
+		this.available = available;
+	}
+
+	public Material(Integer id, String name, String description, String imageUrl, Integer available) {
 		super();
 		this.id = id;
 		this.name = name;
