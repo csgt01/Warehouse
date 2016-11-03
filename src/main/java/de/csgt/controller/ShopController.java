@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.csgt.domain.Color;
 import de.csgt.domain.Shop;
-import de.csgt.service.ShopServiceInterface;
+import de.csgt.service.ShopService;
 
 @Controller
 public class ShopController {
 	
 	@Autowired
-	private ShopServiceInterface shopService;
+	private ShopService shopService;
 	
     @RequestMapping(value = "/shops", method = RequestMethod.GET)
     public String list(Model model){

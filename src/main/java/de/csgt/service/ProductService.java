@@ -1,35 +1,14 @@
 package de.csgt.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import de.csgt.dao.ProductRepository;
 import de.csgt.domain.Product;
 
-@Service
-public class ProductService implements ProductServiceInterface {
+public interface ProductService {
+    Iterable<Product> listAllProducts();
 
-	@Autowired
-	private ProductRepository productRepository;
-	
-	@Override
-	public Iterable<Product> listAllProducts() {
-		return productRepository.findAll();
-	}
+    Product getProductById(Integer id);
 
-	@Override
-	public Product getProductById(Integer id) {
-		return productRepository.findOne(id);
-	}
+    Product saveProduct(Product product);
 
-	@Override
-	public Product saveProduct(Product product) {
-		return productRepository.save(product);
-	}
-
-	@Override
-	public void deleteProduct(Integer id) {
-		productRepository.delete(id);
-	}
-
+    void deleteProduct(Integer id);
 }

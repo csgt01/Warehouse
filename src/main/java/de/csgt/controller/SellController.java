@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import de.csgt.MaterialLoader;
 import de.csgt.domain.Sell;
 import de.csgt.domain.SellMaterial;
-import de.csgt.service.MaterialServiceInterface;
-import de.csgt.service.ProductServiceInterface;
-import de.csgt.service.SellServiceInterface;
+import de.csgt.service.MaterialService;
+import de.csgt.service.ProductService;
+import de.csgt.service.SellService;
 
 @Controller
 public class SellController {
 	
 	@Autowired
-	private ProductServiceInterface productService;
+	private ProductService productService;
 	@Autowired
-	private MaterialServiceInterface materialService;
+	private MaterialService materialService;
 	
 	@Autowired
-	private SellServiceInterface sellService;
+	private SellService sellService;
 	
 	private Logger log = Logger.getLogger(MaterialLoader.class);
 	

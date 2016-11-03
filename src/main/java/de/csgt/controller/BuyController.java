@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import de.csgt.domain.Assignment;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
-import de.csgt.service.AssignmentServiceInterface;
-import de.csgt.service.BuyServiceInterface;
-import de.csgt.service.MaterialServiceInterface;
+import de.csgt.service.AssignmentService;
+import de.csgt.service.BuyService;
+import de.csgt.service.MaterialService;
 
 @Controller
 public class BuyController {
 	
 	@Autowired
-	private MaterialServiceInterface materialService;
+	private MaterialService materialService;
 	
 	@Autowired
-	private BuyServiceInterface buyService;
+	private BuyService buyService;
 	@Autowired
-	private AssignmentServiceInterface assingmentService;
+	private AssignmentService assingmentService;
 	
     @RequestMapping(value = "buys", method = RequestMethod.GET)
     public String list(Model model){
@@ -53,12 +53,7 @@ public class BuyController {
         	model.addAttribute("fields", bindingResult);
             return "buyform";
         }
-        Assignment ass = assingmentService.getAssignmentById(buy.getAssignment().getId());
-        buy.setBroughtAt(ass.getOrderedAt());
-        Material mat = buy.getMaterial();
-        mat.setAvailable(mat.getAvailable() - buy.getTempQuantity() + buy.getQuantity());
-        Material saveMaterial = materialService.saveMaterial(mat);
-        buy.setMaterial(saveMaterial);
+        
         buyService.saveBuy(buy);
         return "redirect:/buy/" + buy.getId();
     }

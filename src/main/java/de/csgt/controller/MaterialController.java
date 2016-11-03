@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Color;
 import de.csgt.domain.Material;
-import de.csgt.service.BuyServiceInterface;
-import de.csgt.service.MaterialServiceInterface;
+import de.csgt.service.BuyService;
+import de.csgt.service.MaterialService;
 
 @Controller
 public class MaterialController {
 	
 	@Autowired
-	private MaterialServiceInterface materialService;
+	private MaterialService materialService;
 	
 	@Autowired
-	private BuyServiceInterface buyService;
+	private BuyService buyService;
 
 	@RequestMapping(value = "/materials", method = RequestMethod.GET)
     public String list(Model model){

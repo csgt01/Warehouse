@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.csgt.domain.Assignment;
-import de.csgt.service.AssignmentServiceInterface;
-import de.csgt.service.ShopServiceInterface;
+import de.csgt.service.AssignmentService;
+import de.csgt.service.ShopService;
 
 @Controller
 public class AssignmentController {
 	
 	@Autowired
-	private AssignmentServiceInterface assignmentService;
+	private AssignmentService assignmentService;
 	
 	@Autowired
-	private ShopServiceInterface shopService;
+	private ShopService shopService;
 	
     @RequestMapping(value = "/assignments", method = RequestMethod.GET)
     public String list(Model model){

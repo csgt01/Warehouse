@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.csgt.domain.Product;
-import de.csgt.service.ProductServiceInterface;
+import de.csgt.service.ProductService;
 
 @Controller
 public class ProductController {
 	
 	@Autowired
-	private ProductServiceInterface productService;
+	private ProductService productService;
 	
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String list(Model model){
