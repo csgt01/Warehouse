@@ -10,6 +10,31 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     <a class="btn btn-large btn-success" href="#" th:href="@{/material/new}">Material erstellen</a>
+    <form class="form-search" action="#" 
+				th:action="@{/material/search}" 
+				th:object="${search}" method="post">
+				<fieldset>
+					<table class="centerAlign">
+						<tr>
+							<td colspan="4"><legend>Suche</legend></td>
+						</tr>
+						<tr>
+				               <td class="inputLabel"><label for="color">Farbe</label></td>
+				                <td>
+					           		<select th:field="*{color}">
+								  		<option th:each="color : ${colors}" 
+								          th:value="${color}" 
+								          th:text="${color.name}">Farbe</option>
+									</select>
+				          		</td>
+						</tr>	
+						<tr>
+							<td colspan="2" class="right"><button type="submit" class="btn btn-primary">Search</button></td>
+						</tr>		
+					</table>
+				</fieldset>
+			</form>	
+    
     <div th:if="${not #lists.isEmpty(materials)}">
         <h2>Materialien</h2>
         <table class="table table-striped">

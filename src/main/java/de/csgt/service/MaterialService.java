@@ -3,6 +3,7 @@ package de.csgt.service;
 import java.util.List;
 
 import de.csgt.domain.Material;
+import de.csgt.domain.Search;
 
 
 
@@ -16,4 +17,6 @@ public interface MaterialService {
     void deleteMaterial(Integer id);
 
 	void saveMaterials(List<Material> materials);
+
+	Iterable<Material> listAllMaterials(Search search);
 }

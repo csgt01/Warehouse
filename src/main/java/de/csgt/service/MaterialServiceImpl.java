@@ -7,31 +7,32 @@ import org.springframework.stereotype.Service;
 
 import de.csgt.dao.MaterialRepository;
 import de.csgt.domain.Material;
+import de.csgt.domain.Search;
 
 @Service
 public class MaterialServiceImpl implements MaterialService {
 
 	@Autowired
-	private MaterialRepository productRepository;
+	private MaterialRepository materialRepository;
 	
 	@Override
 	public Iterable<Material> listAllMaterials() {
-		return productRepository.findAll();
+		return materialRepository.findAll();
 	}
 
 	@Override
 	public Material getMaterialById(Integer id) {
-		return productRepository.findOne(id);
+		return materialRepository.findOne(id);
 	}
 
 	@Override
 	public Material saveMaterial(Material material) {
-		return productRepository.save(material);
+		return materialRepository.save(material);
 	}
 
 	@Override
 	public void deleteMaterial(Integer id) {
-		productRepository.delete(id);
+		materialRepository.delete(id);
 	}
 
 	@Override
@@ -43,6 +44,11 @@ public class MaterialServiceImpl implements MaterialService {
 			}
 		}
 		
+	}
+
+	@Override
+	public Iterable<Material> listAllMaterials(Search search) {
+		return materialRepository.findByColor(search.getColor());
 	}
 
 }
