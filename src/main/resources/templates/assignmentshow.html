@@ -32,11 +32,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Gesamtpreis:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${assignment.price}">description</p>
-                    </div>
-                </div><div class="form-group">
                     <label class="col-sm-2 control-label">Kaufdatum:</label>
                     <div class="col-sm-10">
                         <p class="form-control-static" th:text="${assignment.orderedAt}">description</p>
@@ -48,13 +43,43 @@
                         <p class="form-control-static" th:text="${assignment.closed}">description</p>
                     </div>
                 </div>
-                <div class="form-group" th:each="row,rowStat : ${assignment.buys}">
-					<label class="col-sm-2 control-label" th:text="${row.material.displayName}"></label>
-					<div class="col-sm-10">
-						<p class="form-control-static" th:text="${row.quantity}"></p>
-					</div>
-					
-				</div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Gesamtpreis:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${assignment.price}">description</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Zusatzkosten:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${assignment.addtionalCosts}">description</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                	<label class="col-sm-2 control-label">Einkäufe:</label>
+                	<div class="col-sm-10">
+		                <table class="table table-striped">
+		                	<thead>
+		                		<tr>
+		                			<th>Name</th>
+		                			<th>Anzahl</th>
+		                			<th>Einzelpreis</th>
+		                			<th>Gesamtpreis</th>
+		                		</tr>
+		                	</thead>
+		                	<tbody>
+			                	<th:block th:each="row,rowStat : ${assignment.buys}">
+								    <tr>
+								        <td th:text="${row.material.displayName}">A Smoke Test'</td>
+								        <td th:text="${row.quantity}">A Smoke Test'</td>
+								        <td th:text="${row.price}">A Smoke Test'</td>
+								        <td th:text="${row.totalPrice}">A Smoke Test'</td>
+								    </tr>
+								</th:block>
+							</tbody>
+		                </table>
+	                </div>
+                </div>
             </form>
     </div>
 </div>

@@ -27,7 +27,7 @@
                 <td th:text="${assignment.shop.name}">descirption</td>
                 <td th:text="${assignment.price}">descirption</td>
                 <td th:text="${assignment.closed}">descirption</td>
-                <td><a class="btn btn-sm btn-info" th:href="${'/assignment/' + assignment.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/assignment/' + assignment.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/assignment/delete/' + assignment.id}">Löschen</a></td>
+                <td><a class="btn btn-sm btn-info" th:href="${'/assignment/' + assignment.id}">Anzeigen</a>  <a class="btn btn-sm btn-default" th:href="${'/assignment/edit/' + assignment.id}">Editieren</a>  <a class="btn btn-sm btn-danger" th:href="${'/assignment/delete/' + assignment.id}">Löschen</a></td>
             </tr>
         </table>
 

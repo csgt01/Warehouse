@@ -66,6 +66,9 @@ public class Assignment {
 				p += buy.getTotalPrice();
 			}
 		}
+		if (addtionalCosts != null) {
+			p += addtionalCosts;
+		}
 		return p;
 	}
 
