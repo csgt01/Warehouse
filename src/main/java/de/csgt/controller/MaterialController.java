@@ -101,7 +101,8 @@ public class MaterialController {
 	
     @RequestMapping("material/{id}")
     public String showMaterial(@PathVariable Integer id, Model model){
-        model.addAttribute("material", materialService.getMaterialById(id));
+        Material materialById = materialService.getMaterialById(id);
+		model.addAttribute("material", materialById);
         return "materialshow";
     }
 

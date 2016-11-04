@@ -51,6 +51,11 @@ public class Buy {
 	@OneToMany(mappedBy = "buy")
 	@Cascade(value = {CascadeType.ALL})
 	private List<SellBuy> sellbuys;
+
+	@NotNull
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id")
+	private Material material;
 	
 	public Buy() {
 		super();
@@ -66,11 +71,6 @@ public class Buy {
 		this.soldInt = soldInt;
 		this.material = material;
 	}
-
-	@NotNull
-	@ManyToOne
-	@JoinColumn
-	private Material material;
 
 	public Long getId() {
 		return id;

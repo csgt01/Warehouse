@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import de.csgt.domain.Material;
 
 @Service
 public class BuyServiceImpl implements BuyService {
+	
+	private Logger log = Logger.getLogger(BuyServiceImpl.class);
 
 	@Autowired
 	private BuyRepository buyRepository;
@@ -36,14 +39,20 @@ public class BuyServiceImpl implements BuyService {
 	}
 
 	@Override
+	@Transactional
 	public Buy saveBuy(Buy buy) {
+		log.info("buy soldInt:" + buy.getSoldInt() + " temp:" + buy.getTempQuantity() + " quantity:" + buy.getQuantity() + " material avail" + buy.getMaterial().getAvailable());
 		Assignment ass = assingmentService.getAssignmentById(buy.getAssignment().getId());
-        buy.setBroughtAt(ass.getOrderedAt());
         Material mat = buy.getMaterial();
         mat.setAvailable(mat.getAvailable() - buy.getTempQuantity() + buy.getQuantity());
         Material saveMaterial = materialService.saveMaterial(mat);
         buy.setMaterial(saveMaterial);
-		return buyRepository.save(buy);
+        buy.setBroughtAt(ass.getOrderedAt());
+        
+		Buy save = buyRepository.save(buy);
+		saveMaterial.getBuys().add(save);
+		materialService.saveMaterial(saveMaterial);
+		return save;
 	}
 
 	@Override
