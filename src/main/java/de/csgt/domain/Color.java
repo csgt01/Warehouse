@@ -24,6 +24,7 @@ public enum Color {
 	WOOD("Holz"), 
 	GREY("Grau"), 
 	LIGHT_GREY("Hellgrau"), 
+	GERANIE_PINK("Geraniepink"), 
 	SILVER("Silber");
 	
 	private Color(String name) {

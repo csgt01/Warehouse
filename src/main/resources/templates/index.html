@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
 
-    <title>Spring Framework Guru</title>
+    <title>Warenverwaltung</title>
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
@@ -10,6 +10,59 @@
 
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+   	<div th:if="${not #lists.isEmpty(assignments)}">
+	    <table class="table table-striped">
+	    	<tr>
+	    		<th>Zeitraum</th>
+	    		<th>Einkauf</th>
+	    		<th>Verkauf</th>
+	    		<th>Gewinn</th>
+	    	</tr>
+	    	<tr th:each="statistic : ${statistics}">
+                <td th:text="${statistic.time}">descirption</td>
+                <td th:text="${statistic.out}">descirption</td>
+                <td th:text="${statistic.in}">descirption</td>
+                <td th:text="${statistic.win}">descirption</td>
+            </tr>
+	    </table>
+    </div>
+    <div th:if="${not #lists.isEmpty(assignments)}">
+        <h2>Einkauf</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Kaufdatum</th>
+                <th>Shop</th>
+                <th>Gesamtpreis</th>
+            </tr>
+            <tr th:each="assignment : ${assignments}">
+                <td th:text="${assignment.orderedAt}">descirption</td>
+                <td th:text="${assignment.shop.name}">descirption</td>
+                <td th:text="${assignment.price}">descirption</td>
+            </tr>
+        </table>
+
+    </div>
+    <div>
+        <h2>Verkäufe</h2>
+        <table class="table table-striped" th:if="${not #lists.isEmpty(sells)}">
+            <tr>
+                <th>Einzelpreis</th>
+                <th>Einzelkosten</th>
+                <th>Anzahl</th>
+                <th>Verkauft</th>
+                <th>Verkauft am</th>
+            </tr>
+            <tr th:each="sell : ${sells}">
+                <td th:text="${sell.price}">descirption</td>
+                <td th:text="${sell.totalCosts}">descirption</td>
+                <td th:text="${sell.quantity}">quantity</td>
+                <td th:text="${sell.sold}">descirption</td>
+                <td th:text="${sell.soldAt}">descirption</td>
+            </tr>
+        </table>
+
+    </div>
 </div>
 </body>
 </html>

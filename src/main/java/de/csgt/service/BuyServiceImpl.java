@@ -50,7 +50,9 @@ public class BuyServiceImpl implements BuyService {
         buy.setBroughtAt(ass.getOrderedAt());
         
 		Buy save = buyRepository.save(buy);
-		saveMaterial.getBuys().add(save);
+		if (!saveMaterial.getBuys().contains(save)) {
+			saveMaterial.getBuys().add(save);
+		}
 		materialService.saveMaterial(saveMaterial);
 		return save;
 	}
