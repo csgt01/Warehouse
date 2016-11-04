@@ -62,7 +62,19 @@ public class MaterialServiceImpl implements MaterialService {
 
 	@Override
 	public Page<Material> listAllMaterialsPage(PageRequest pageable, Search search) {
-		Page<Material> findByColor = materialRepository.findByColor(search.getColor(), pageable);
+		Page<Material> findByColor = null;
+		if (search.getColor() != null) {
+			if (search.getSearch() != null && !search.getSearch().isEmpty()) {
+				findByColor = materialRepository.findByColorAndNameContaining(search.getColor(), search.getSearch(), pageable);
+			} else {
+				findByColor = materialRepository.findByColor(search.getColor(), pageable);
+			}
+		} else {
+			if (search.getSearch() != null && !search.getSearch().isEmpty()) {
+				findByColor = materialRepository.findByNameContaining(search.getSearch(), pageable);
+			}
+		}
+		
 		return findByColor;
 	}
 
