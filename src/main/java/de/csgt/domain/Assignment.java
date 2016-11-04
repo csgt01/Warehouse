@@ -42,9 +42,10 @@ public class Assignment {
 	@Cascade(value = {CascadeType.ALL})
 	private List<Buy> buys;
 	
-	@OneToMany(mappedBy = "assignment")
-	@Cascade(value = {CascadeType.ALL})
-	private List<AdditionalItems> additionalItems;
+//	@OneToMany(mappedBy = "assignment")
+//	@Cascade(value = {CascadeType.ALL})
+//	private List<AdditionalItems> additionalItems;
+	private Double addtionalCosts;
 	
 	public Assignment() {
 		super();
@@ -114,6 +115,14 @@ public class Assignment {
 
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
+	}
+
+	public Double getAddtionalCosts() {
+		return addtionalCosts;
+	}
+
+	public void setAddtionalCosts(Double addtionalCosts) {
+		this.addtionalCosts = addtionalCosts;
 	}
 	
 }
