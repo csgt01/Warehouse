@@ -42,6 +42,10 @@ public class Assignment {
 	@Cascade(value = {CascadeType.ALL})
 	private List<Buy> buys;
 	
+	@OneToMany(mappedBy = "assignment")
+	@Cascade(value = {CascadeType.ALL})
+	private List<AdditionalItems> additionalItems;
+	
 	public Assignment() {
 		super();
 	}

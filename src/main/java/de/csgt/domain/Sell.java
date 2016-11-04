@@ -53,6 +53,10 @@ public class Sell {
 	@Cascade(value = {CascadeType.ALL})
 	private List<SellBuy> sellbuys;
 	
+	@OneToMany(mappedBy = "sell")
+	@Cascade(value = {CascadeType.ALL})
+	private List<AdditionalItems> additionalItems;
+	
 	public Sell() {
 		super();
 	}
