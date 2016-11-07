@@ -118,7 +118,7 @@ public class Material {
 	}
 	
 	public String getDisplayName() {
-		return name + ", " + color.getName() + ", " + description;
+		return name + ", " + color.getName() + ", " + size + ", " + description;
 	}
 
 //	@Override

@@ -75,6 +75,7 @@
 	                <th>Id</th>
 	                <th>Name</th>
 	                <th>Farbe</th>
+	                <th>Größe</th>
 	                <th>Beschreibung</th>
 	                <th>Verfügbar</th>
 	                <th>Aktionen</th>
@@ -83,6 +84,7 @@
 	                <td th:text="${material.id}"><a href="/material/${material.id}">Id</a></td>
 	                <td th:text="${material.name}">name</td>
 	                <td th:text="${material.color.name}">name</td>
+	                <td th:text="${material.size}">descirption</td>
 	                <td th:text="${material.description}">descirption</td>
 	                <td th:text="${material.available}">descirption</td>
 	                <td><a class="btn btn-sm btn-info" th:href="${'/material/' + material.id}">Anzeigen</a>  

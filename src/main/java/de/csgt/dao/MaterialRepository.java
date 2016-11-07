@@ -15,5 +15,5 @@ public interface MaterialRepository extends CrudRepository<Material, Integer>{
 	Page<Material> findByColor(Color color, Pageable pageable);
 	Page<Material> findByNameContaining(String name, Pageable pageable);
 	Page<Material> findByColorAndNameContaining(Color color, String name, Pageable pageable);
-	List<Material> findByNameAndColor(String name, Color color);
+	List<Material> findByNameAndColorAndSize(String name, Color color, Double size);
 }

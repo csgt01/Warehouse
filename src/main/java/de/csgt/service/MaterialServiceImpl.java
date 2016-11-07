@@ -82,8 +82,8 @@ public class MaterialServiceImpl implements MaterialService {
 	}
 
 	@Override
-	public List<Material> findByNameAndColor(String name, Color color) {
-		return materialRepository.findByNameAndColor(name, color);
+	public List<Material> findByNameAndColorAndSize(String name, Color color, Double size) {
+		return materialRepository.findByNameAndColorAndSize(name, color, size);
 	}
 
 }

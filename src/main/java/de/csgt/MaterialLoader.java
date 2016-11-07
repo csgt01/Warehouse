@@ -497,6 +497,14 @@ public class MaterialLoader implements ApplicationListener<ContextRefreshedEvent
 		saveMaterial(i, mat);
 		i++;
 		
+		mat = new Material(i, "Motivperle Lokomotive", "", Color.SEVERAL, 0.0, 0);
+		saveMaterial(i, mat);
+		i++;
+		
+		mat = new Material(i, "Motivperle Eule", "", Color.SEVERAL, 0.0, 0);
+		saveMaterial(i, mat);
+		i++;
+		
 	}
 
 
@@ -505,7 +513,7 @@ public class MaterialLoader implements ApplicationListener<ContextRefreshedEvent
 		Material materialById = materialService.getMaterialById(i);
 		if (materialById == null) {
 			log.info("ID does not exist");
-			List<Material> mats = materialService.findByNameAndColor(mat.getName(), mat.getColor());
+			List<Material> mats = materialService.findByNameAndColorAndSize(mat.getName(), mat.getColor(), mat.getSize());
 			if (mats != null && mats.size() > 0) {
 				log.info("Name and Color exist");
 			} else {

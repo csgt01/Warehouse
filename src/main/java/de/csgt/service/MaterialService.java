@@ -27,5 +27,5 @@ public interface MaterialService {
 
 	Iterable<Material> listAllMaterials(Search search);
 	
-	List<Material> findByNameAndColor(String name, Color color);
+	List<Material> findByNameAndColorAndSize(String name, Color color, Double size);
 }
