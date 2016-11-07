@@ -37,16 +37,18 @@ public class MaterialController {
         model.addAttribute("page", pag);
         model.addAttribute("colors", Color.values());
         model.addAttribute("search", new Search());
+        System.out.println(pag.toString());
         return "materials";
     }
 	
 	@RequestMapping(value = "/materialsearch", method = RequestMethod.POST)
     public String search(@ModelAttribute("search") Search search, Model model, Pageable pageable){
 		PageRequest req = new PageRequest(pageable.getPageNumber(), 20, Sort.Direction.ASC, "name");
-        model.addAttribute("page", materialService.listAllMaterialsPage(req, search));
-        
+        Page<Material> pag = materialService.listAllMaterialsPage(req, search);
+		model.addAttribute("page", pag);
         model.addAttribute("colors", Color.values());
         model.addAttribute("search", search);
+        System.out.println(pag.toString() + "       " + pag.getTotalPages());
         return "materials";
     }
 
