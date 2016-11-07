@@ -20,7 +20,7 @@ public class MaterialServiceImpl implements MaterialService {
 	
 	@Override
 	public Iterable<Material> listAllMaterials() {
-		return materialRepository.findAll();
+		return materialRepository.findByOrderByNameAsc();
 	}
 
 	@Override

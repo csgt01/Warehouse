@@ -27,7 +27,7 @@ public class WarehouseController {
     String index(Model model) {
 		Iterable<Assignment> listAllAssignments = assService.listAllAssignments();
 		model.addAttribute("assignments", listAllAssignments);
-		Iterable<Sell> listAllSells = sellService.listAllSells();
+		Iterable<Sell> listAllSells = sellService.listAllSellsSold();
 		model.addAttribute("sells", listAllSells);
 		Statistic stat = new Statistic();
 		Double in = 0.0;

@@ -5,7 +5,8 @@ import de.csgt.domain.Sell;
 
 
 public interface SellService {
-    Iterable<Sell> listAllSells();
+	Iterable<Sell> listAllSells();
+	Iterable<Sell> listAllSellsSold();
 
     Sell getSellById(Long id);
 

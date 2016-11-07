@@ -134,4 +134,9 @@ public class SellServiceImpl implements SellService {
 		sellRepository.delete(id);
 	}
 
+	@Override
+	public Iterable<Sell> listAllSellsSold() {
+		return sellRepository.findBySoldTrue();
+	}
+
 }
