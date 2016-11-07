@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import de.csgt.dao.MaterialRepository;
+import de.csgt.domain.Color;
 import de.csgt.domain.Material;
 import de.csgt.domain.Search;
 
@@ -66,6 +67,9 @@ public class MaterialServiceImpl implements MaterialService {
 		if (search.getColor() != null) {
 			if (search.getSearch() != null && !search.getSearch().isEmpty()) {
 				findByColor = materialRepository.findByColorAndNameContaining(search.getColor(), search.getSearch(), pageable);
+				if (!findByColor.hasContent()) {
+					findByColor = materialRepository.findByNameContaining(search.getSearch(), pageable);
+				}
 			} else {
 				findByColor = materialRepository.findByColor(search.getColor(), pageable);
 			}
@@ -76,6 +80,11 @@ public class MaterialServiceImpl implements MaterialService {
 		}
 		
 		return findByColor;
+	}
+
+	@Override
+	public List<Material> findByNameAndColor(String name, Color color) {
+		return materialRepository.findByNameAndColor(name, color);
 	}
 
 }

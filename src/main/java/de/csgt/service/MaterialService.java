@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import de.csgt.domain.Color;
 import de.csgt.domain.Material;
 import de.csgt.domain.Search;
 
@@ -25,4 +26,6 @@ public interface MaterialService {
 	void saveMaterials(List<Material> materials);
 
 	Iterable<Material> listAllMaterials(Search search);
+	
+	List<Material> findByNameAndColor(String name, Color color);
 }

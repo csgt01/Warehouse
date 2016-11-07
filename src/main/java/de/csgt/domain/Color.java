@@ -25,7 +25,10 @@ public enum Color {
 	GREY("Grau"), 
 	LIGHT_GREY("Hellgrau"), 
 	GERANIE_PINK("Geraniepink"), 
-	SILVER("Silber");
+	SILVER("Silber"), 
+	BLACK("Schwarz"), 
+	DARK_BLUE("Dunkelblau"), 
+	NO_COLOR("Keine Auswahl");
 	
 	private Color(String name) {
 		this.name = name;
