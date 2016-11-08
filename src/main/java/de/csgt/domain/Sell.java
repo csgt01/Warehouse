@@ -39,6 +39,7 @@ public class Sell {
 	private Double totalCosts = 0.0;
 	
 	private boolean sold;
+	private Double addtionalCosts;
 
 	@NotNull
 	@ManyToOne
@@ -150,6 +151,14 @@ public class Sell {
 
 	public void setSold(boolean sold) {
 		this.sold = sold;
+	}
+
+	public Double getAddtionalCosts() {
+		return addtionalCosts;
+	}
+
+	public void setAddtionalCosts(Double addtionalCosts) {
+		this.addtionalCosts = addtionalCosts;
 	}
 
 	@Override

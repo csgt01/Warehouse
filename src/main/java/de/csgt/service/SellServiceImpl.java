@@ -67,6 +67,7 @@ public class SellServiceImpl implements SellService {
 			} 
 		}
 		sellBuys = new ArrayList<SellBuy>();
+		sell.setTotalCosts(sell.getAdditionalCosts() != null ? sell.getAdditionalCosts() : 0.0);
 		for (SellMaterial sellMat : sell.getSellMaterials()) {
 			sellMat.setSell(sell);
 			Material material = sellMat.getMaterial();
@@ -124,6 +125,7 @@ public class SellServiceImpl implements SellService {
 			
 		}
 		sell.setSellBuys(sellBuys);
+		
 		sell = sellRepository.save(sell);
 		log.info("SellBuys size:" + sell.getSellBuys().size());
 		return sell;
