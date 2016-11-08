@@ -28,8 +28,8 @@
                 <td th:text="${buy.id}"><a href="/buy/${buy.id}">Id</a></td>
                 <td th:text="${buy.material.displayName}">name</td>
                 <td th:text="${buy.quantity}">quantity</td>
-                <td th:text="${buy.price}">descirption</td>
-                <td th:text="${buy.totalPrice}">descirption</td>
+                <td th:text=""${#numbers.formatDecimal(buy.price,1,10)}">descirption</td>
+                <td th:text="${#numbers.formatDecimal(buy.totalPrice,1,2)}">descirption</td>
                 <td th:text="${buy.sold}">quantity</td>
                 <td th:text="${buy.soldInt}">quantity</td>
                 <td th:text="${buy.broughtAt}">descirption</td>
