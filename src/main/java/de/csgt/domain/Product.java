@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Product {
@@ -20,6 +23,11 @@ public class Product {
     private String name;
     private String description;
     private String imageUrl;
+    
+    @Transient
+    private MultipartFile file;
+    
+    private String foto;
     
     public Product() {
 		super();
@@ -72,4 +80,21 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 }
