@@ -67,19 +67,18 @@ public class SellController {
         	model.addAttribute("fields", bindingResult);
             return "sellform";
         }
-        String base64;
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		try {
-			Thumbnails.of(file.getInputStream())
-				.forceSize(200, 200)
-				.outputFormat("jpg")
-				.toOutputStream(out);
-			base64 = Base64Utils.encodeToString(out.toByteArray());
-			sell.setFoto(base64);
-		} catch (IOException e) {
-			System.out.println(e);
+        if (file != null) {
+			String base64;
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
+				Thumbnails.of(file.getInputStream()).forceSize(200, 200).outputFormat("jpg").toOutputStream(out);
+				base64 = Base64Utils.encodeToString(out.toByteArray());
+				sell.setFoto(base64);
+			} catch (IOException e) {
+				System.out.println(e);
+			}
 		}
-        Sell sellSaved = sellService.saveSell(sell);
+		Sell sellSaved = sellService.saveSell(sell);
         return "redirect:/sell/" + sellSaved.getId();
     }
 	
