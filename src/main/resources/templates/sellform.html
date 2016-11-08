@@ -2,112 +2,103 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title>Warenverwaltung</title>
+<title>Warenverwaltung</title>
 
-    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-<div class="container">
-    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-    <h2>Verkauf erstellen</h2>
-    <div>
-    	<ul>
-		  <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-		</ul>
-		<div th:if="${#fields.hasGlobalErrors()}">
-  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-</div>
-        <form class="form-horizontal" th:object="${sell}" th:action="@{/sell}" method="post">
-            <input type="hidden" th:field="*{id}"/>
-            <div class="row">
-                <button type="submit" class="btn btn-default">Submit</button>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Products:</label>
-                <div class="col-sm-10">
-	           		<select th:field="*{product}">
-				  		<option th:each="product : ${products}" 
-				          th:value="${product.id}" 
-				          th:text="${product.name}">Product</option>
+		<h2>Verkauf erstellen</h2>
+		<form class="form-horizontal" th:object="${sell}" th:action="@{/sell}"
+			method="post">
+			<input type="hidden" th:field="*{id}" />
+			<div class="row">
+				<button type="submit" class="btn btn-default">Submit</button>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Products:</label>
+				<div class="col-sm-10">
+					<select th:field="*{product}">
+						<option th:each="product : ${products}" th:value="${product.id}"
+							th:text="${product.name}">Product</option>
 					</select>
-          		</div>
-            </div>
-          	<div class="form-group">
-                <label class="col-sm-2 control-label">Preis:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{price}" />
-                    <ul>
-					  <li th:each="err : ${#fields.errors('price')}" th:text="${err}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Preis:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:field="*{price}" />
+					<ul>
+						<li th:each="err : ${#fields.errors('price')}" th:text="${err}" />
 					</ul>
-                </div>
-            </div>
-          	<div class="form-group">
-                <label class="col-sm-2 control-label">Verkauft:</label>
-                <div class="col-sm-10">
-                    <input type="checkbox" class="form-control" th:field="*{sold}" />
-                    <ul>
-					  <li th:each="err : ${#fields.errors('sold')}" th:text="${err}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Verkauft:</label>
+				<div class="col-sm-10">
+					<input type="checkbox" class="form-control" th:field="*{sold}" />
+					<ul>
+						<li th:each="err : ${#fields.errors('sold')}" th:text="${err}" />
 					</ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Anzahl:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{quantity}"/>
-                    <ul>
-					  <li th:each="err : ${#fields.errors('quantity')}" th:text="${err}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Anzahl:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:field="*{quantity}" />
+					<ul>
+						<li th:each="err : ${#fields.errors('quantity')}" th:text="${err}" />
 					</ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Verkaufdatum:</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" th:field="*{soldAt}"/>
-                    <ul>
-					  <li th:each="err : ${#fields.errors('soldAt')}" th:text="${err}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Verkaufdatum:</label>
+				<div class="col-sm-10">
+					<input type="date" class="form-control" th:field="*{soldAt}" />
+					<ul>
+						<li th:each="err : ${#fields.errors('soldAt')}" th:text="${err}" />
 					</ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Materialien:</label>
-                <div class="col-sm-10">
-		            <table class="table table-striped">
-					  <thead>
-					    <tr>
-					      <th>Row</th>
-					      <th>Name</th>
-					      <th>Anzahl</th>
-					      <th>
-					        <button type="submit" name="addRow" >Add row</button>
-					      </th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr th:each="row,rowStat : *{sellMaterials}">
-					      <td th:text="${rowStat.count}">1</td>
-					      <td>
-					        <select th:field="*{sellMaterials[__${rowStat.index}__].material}">
-					          <option th:each="var : ${materials}" 
-					                  th:value="${var.id}" 
-					                  th:text="${var.displayName}">Thymus Thymi</option>
-					        </select>
-					      </td>
-					      <td>
-					      	<input type="hidden" th:field="*{sellMaterials[__${rowStat.index}__].id}"/>
-					        <input type="text" th:field="*{sellMaterials[__${rowStat.index}__].quantity}"/>
-					      </td>
-					      <td>
-					      	<button type="submit" name="removeRow" th:value="${rowStat.index}" >Remove row</button>
-					      </td>
-					    </tr>
-					  </tbody>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Materialien:</label>
+				<div class="col-sm-10">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Row</th>
+								<th>Name</th>
+								<th>Anzahl</th>
+								<th>
+									<button type="submit" name="addRow">Add row</button>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="row,rowStat : *{sellMaterials}">
+								<td th:text="${rowStat.count}">1</td>
+								<td><select
+									th:field="*{sellMaterials[__${rowStat.index}__].material}">
+										<option th:each="var : ${materials}" th:value="${var.id}"
+											th:text="${var.displayName}">Thymus Thymi</option>
+								</select></td>
+								<td><input type="hidden"
+									th:field="*{sellMaterials[__${rowStat.index}__].id}" /> <input
+									type="text"
+									th:field="*{sellMaterials[__${rowStat.index}__].quantity}" /></td>
+								<td>
+									<button type="submit" name="removeRow"
+										th:value="${rowStat.index}">Remove row</button>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
-        </form>
-    </div>
-</div>
+		</form>
+	</div>
 
 </body>
 </html>

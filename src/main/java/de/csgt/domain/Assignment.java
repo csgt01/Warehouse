@@ -1,5 +1,7 @@
 package de.csgt.domain;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
@@ -69,6 +71,9 @@ public class Assignment {
 		if (addtionalCosts != null) {
 			p += addtionalCosts;
 		}
+		BigDecimal big = new BigDecimal(p);
+		big = big.setScale(2, RoundingMode.HALF_UP);
+		p = big.doubleValue();
 		return p;
 	}
 
