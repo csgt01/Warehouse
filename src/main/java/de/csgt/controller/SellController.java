@@ -1,19 +1,25 @@
 package de.csgt.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import de.csgt.MaterialLoader;
 import de.csgt.domain.Sell;
@@ -51,7 +57,7 @@ public class SellController {
 	}
 	
 	@RequestMapping(value = "sell", method = RequestMethod.POST)
-    public String checkPersonInfo(@Valid Sell sell, BindingResult bindingResult, Model model, HttpServletRequest req) {
+    public String checkPersonInfo(@Valid Sell sell, BindingResult bindingResult, Model model, HttpServletRequest req, MultipartFile file) {
 		log.info("sell post:" + req.getRequestURL() + " " + req.getQueryString() + " ");
 		log.info("sell post:" + sell.toString());
         if (bindingResult.hasErrors()) {
@@ -61,6 +67,18 @@ public class SellController {
         	model.addAttribute("fields", bindingResult);
             return "sellform";
         }
+        String base64;
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			Thumbnails.of(file.getInputStream())
+				.forceSize(200, 200)
+				.outputFormat("jpg")
+				.toOutputStream(out);
+			base64 = Base64Utils.encodeToString(out.toByteArray());
+			sell.setFoto(base64);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
         Sell sellSaved = sellService.saveSell(sell);
         return "redirect:/sell/" + sellSaved.getId();
     }

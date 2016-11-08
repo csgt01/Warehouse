@@ -40,20 +40,8 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "product", method = RequestMethod.POST)
-	public String saveProduct(Product product, MultipartFile file) {
-		System.out.println(file.getOriginalFilename() + " " + file.getContentType() + " " + file.getSize());
-		String base64;
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		try {
-			Thumbnails.of(file.getInputStream())
-				.forceSize(200, 200)
-				.outputFormat("jpg")
-				.toOutputStream(out);
-			base64 = Base64Utils.encodeToString(out.toByteArray());
-			product.setFoto(base64);
-		} catch (IOException e) {
-			System.out.println(e);
-		}
+	public String saveProduct(Product product) {
+		
 		productService.saveProduct(product);
 		return "redirect:/product/" + product.getId();
 	}
@@ -62,7 +50,6 @@ public class ProductController {
 	public String showProduct(@PathVariable Integer id, Model model) {
 		Product productById = productService.getProductById(id);
 		model.addAttribute("product", productById);
-		System.out.println(productById.getFoto().length());
 		return "productshow";
 	}
 

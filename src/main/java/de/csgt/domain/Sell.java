@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
@@ -40,6 +42,11 @@ public class Sell {
 	
 	private boolean sold;
 	private Double addtionalCosts;
+	
+	@Transient
+    private MultipartFile file;
+	    
+	private String foto;
 
 	@NotNull
 	@ManyToOne
@@ -161,6 +168,30 @@ public class Sell {
 		this.addtionalCosts = addtionalCosts;
 	}
 
+	public Double getAdditionalCosts() {
+		return additionalCosts;
+	}
+
+	public void setAdditionalCosts(Double additionalCosts) {
+		this.additionalCosts = additionalCosts;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	@Override
 	public String toString() {
 		return "{\"id\":\"" + id + "\", "
@@ -171,14 +202,6 @@ public class Sell {
 				+ "\"sold\":\"" + sold + "\" "
 //				+ "\"sellMaterials\":\"" + sellMaterials != null ? sellMaterials.toString() : ""
 				+ "\"}";
-	}
-
-	public Double getAdditionalCosts() {
-		return additionalCosts;
-	}
-
-	public void setAdditionalCosts(Double additionalCosts) {
-		this.additionalCosts = additionalCosts;
 	}
 
 	
