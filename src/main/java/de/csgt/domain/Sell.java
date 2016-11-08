@@ -32,10 +32,8 @@ public class Sell {
 	
 	private Date soldAt;
 
-	@NotNull
 	private Integer quantity;
 	
-	@NotNull
 	private Double price;
 	
 	private Double totalCosts = 0.0;
