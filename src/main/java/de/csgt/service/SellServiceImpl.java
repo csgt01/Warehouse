@@ -133,6 +133,18 @@ public class SellServiceImpl implements SellService {
 
 	@Override
 	public void deleteSell(Long id) {
+		Sell sell = sellRepository.findOne(id);
+		List<SellBuy> sellBuys = sell.getSellBuys();
+		for (SellBuy sellBuy : sellBuys) {
+			Buy buy = sellBuy.getBuy();
+			Material material = buy.getMaterial();
+			Integer quantity = sellBuy.getQuantity();
+			material.setAvailable(quantity + material.getAvailable());
+			buy.setSoldInt(buy.getSoldInt() - quantity);
+			buy.setSold(false);
+			materialService.saveMaterial(material);
+			buyService.saveBuy(buy);
+		}
 		sellRepository.delete(id);
 	}
 

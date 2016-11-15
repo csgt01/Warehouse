@@ -10,7 +10,7 @@ public interface BuyService {
 
     Buy getBuyById(Long id);
 
-    Buy saveBuy(Buy product);
+    Buy saveBuy(Buy buy);
 
     void deleteBuy(Long id);
     

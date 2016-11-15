@@ -159,16 +159,8 @@ public class Buy {
 		this.assignment = assignment;
 	}
 
-	public List<SellBuy> getSellbuys() {
-		return sellbuys;
-	}
-
 	public void setSellbuys(List<SellBuy> sellbuys) {
 		this.sellbuys = sellbuys;
-	}
-
-	public void setSoldInt(int soldInt) {
-		this.soldInt = soldInt;
 	}
 
 	public Double getTotalPrice() {
