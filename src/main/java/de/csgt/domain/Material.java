@@ -32,7 +32,7 @@ public class Material {
     @Min(0)
     private Integer available = 0;
     
-    @OneToMany
+    @OneToMany(mappedBy = "material")
     private List<Buy> buys;
     
     @OneToMany(mappedBy = "material")

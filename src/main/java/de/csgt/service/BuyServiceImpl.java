@@ -25,7 +25,7 @@ public class BuyServiceImpl implements BuyService {
 	private MaterialService materialService;
 	
 	@Autowired
-	private AssignmentService assingmentService;
+	private AssignmentService assignmentService;
 	
 	@Override
 	public Iterable<Buy> listAllBuys() {
@@ -42,7 +42,7 @@ public class BuyServiceImpl implements BuyService {
 	@Transactional
 	public Buy saveBuy(Buy buy) {
 		log.info("buy soldInt:" + buy.getSoldInt() + " temp:" + buy.getTempQuantity() + " quantity:" + buy.getQuantity() + " material avail" + buy.getMaterial().getAvailable());
-		Assignment ass = assingmentService.getAssignmentById(buy.getAssignment().getId());
+		Assignment ass = assignmentService.getAssignmentById(buy.getAssignment().getId());
         Material mat = buy.getMaterial();
         mat.setAvailable(mat.getAvailable() - buy.getTempQuantity() + buy.getQuantity());
         Material saveMaterial = materialService.saveMaterial(mat);
@@ -54,6 +54,11 @@ public class BuyServiceImpl implements BuyService {
 			saveMaterial.getBuys().add(save);
 		}
 		materialService.saveMaterial(saveMaterial);
+		
+		if (!ass.getBuys().contains(save)) {
+			ass.getBuys().add(save);
+		}
+		assignmentService.saveAssignment(ass);
 		return save;
 	}
 
@@ -63,6 +68,11 @@ public class BuyServiceImpl implements BuyService {
 		Buy buy = getBuyById(id);
 		Material material = materialService.getMaterialById(buy.getMaterial().getId());
 		material.setAvailable(material.getAvailable() + buy.getSoldInt() - buy.getQuantity());
+		material.getBuys().remove(buy);
+		materialService.saveMaterial(material);
+		Assignment assignment = buy.getAssignment();
+		assignment.getBuys().remove(buy);
+		assignmentService.saveAssignment(assignment);
 		buyRepository.delete(id);
 	}
 

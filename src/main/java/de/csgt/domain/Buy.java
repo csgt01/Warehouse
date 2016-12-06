@@ -61,7 +61,7 @@ public class Buy {
 		super();
 	}
 
-	public Buy(Long id, Date broughtAt, Integer quantity, Integer tempQuantity, Double price, boolean sold, int soldInt, Material material) {
+	public Buy(Long id, Date broughtAt, Integer quantity, Integer tempQuantity, Double price, boolean sold, int soldInt, Material material, Assignment assignment) {
 		super();
 		this.id = id;
 		this.broughtAt = broughtAt;
@@ -70,6 +70,7 @@ public class Buy {
 		this.sold = sold;
 		this.soldInt = soldInt;
 		this.material = material;
+		this.assignment = assignment;
 	}
 
 	public Long getId() {
