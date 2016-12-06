@@ -62,7 +62,7 @@ public class SellServiceImpl implements SellService {
 				material2 = materialService.saveMaterial(material2);
 				log.info("material2 available:" + material2.getAvailable());
 				sellBuyRepository.delete(sellBuy.getId());
-				buyService.saveBuy(thisBuy);
+				buyService.saveBuyRaw(thisBuy);
 				
 			} 
 		}
@@ -97,8 +97,8 @@ public class SellServiceImpl implements SellService {
 					buy.setSold(false);
 					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
 					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
-					buy = buyService.saveBuy(buy);
 					sellBuys.add(new SellBuy(sell, buy, tempQuantity));
+					buy = buyService.saveBuyRaw(buy);
 					break;
 				} else if (buyQuantity == tempQuantity) {
 					log.info("buyQuantity == tempQuantity");
@@ -106,7 +106,7 @@ public class SellServiceImpl implements SellService {
 					buy.setSoldInt(buy.getSoldInt() + tempQuantity);
 					sell.setTotalCosts(sell.getTotalCosts() + (tempQuantity * buy.getPrice()));
 					sellBuys.add(new SellBuy(sell, buy, tempQuantity));
-					buyService.saveBuy(buy);
+					buyService.saveBuyRaw(buy);
 					break;
 				} else {
 					log.info("buyQuantity < tempQuantity");
@@ -116,7 +116,7 @@ public class SellServiceImpl implements SellService {
 					buy.setSoldInt(buy.getQuantity());
 					sell.setTotalCosts(sell.getTotalCosts() + (toSell * buy.getPrice()));
 					sellBuys.add(new SellBuy(sell, buy, toSell));
-					buyService.saveBuy(buy);
+					buyService.saveBuyRaw(buy);
 				}
 				
 			} 
@@ -143,7 +143,7 @@ public class SellServiceImpl implements SellService {
 			buy.setSoldInt(buy.getSoldInt() - quantity);
 			buy.setSold(false);
 			materialService.saveMaterial(material);
-			buyService.saveBuy(buy);
+			buyService.saveBuyRaw(buy);
 		}
 		sellRepository.delete(id);
 	}

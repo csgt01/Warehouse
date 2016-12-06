@@ -79,19 +79,19 @@ public class MaterialController {
 					if (buyQuantity > tempDifference) {
 						buy.setSold(false);
 						buy.setSoldInt(buy.getSoldInt() + tempDifference);
-						buy = buyService.saveBuy(buy);
+						buy = buyService.saveBuyRaw(buy);
 						break;
 					} else if (buyQuantity == tempDifference) {
 						buy.setSold(true);
 						buy.setSoldInt(buy.getSoldInt() + tempDifference);
-						buyService.saveBuy(buy);
+						buyService.saveBuyRaw(buy);
 						break;
 					} else {
 						int toSell = buy.getQuantity() - buy.getSoldInt();
 						tempDifference = tempDifference - toSell;
 						buy.setSold(true);
 						buy.setSoldInt(buy.getQuantity());
-						buyService.saveBuy(buy);
+						buyService.saveBuyRaw(buy);
 					}
 				}
 			} else if (difference < 0) {

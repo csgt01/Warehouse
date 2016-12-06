@@ -64,6 +64,12 @@ public class BuyServiceImpl implements BuyService {
 
 	@Override
 	@Transactional
+	public Buy saveBuyRaw(Buy buy) {
+		return buyRepository.save(buy);
+	}
+
+	@Override
+	@Transactional
 	public void deleteBuy(Long id) {
 		Buy buy = getBuyById(id);
 		Material material = materialService.getMaterialById(buy.getMaterial().getId());

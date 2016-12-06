@@ -17,4 +17,6 @@ public interface BuyService {
 	Iterable<Buy> listAllBuysByMaterialAndNotSold(Material material);
 
 	Iterable<Buy> listAllBuysByMaterial(Material material);
+
+	Buy saveBuyRaw(Buy buy);
 }

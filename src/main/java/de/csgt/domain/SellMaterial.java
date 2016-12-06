@@ -42,6 +42,12 @@ public class SellMaterial {
 		super();
 		this.sell = sell;
 	}
+	
+	public SellMaterial(Sell sell, Material material) {
+		super();
+		this.sell = sell;
+		this.material = material;
+	}
 
 	public Long getId() {
 		return id;
