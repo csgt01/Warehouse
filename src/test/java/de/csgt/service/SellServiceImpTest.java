@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.csgt.DemoApplication;
+import de.csgt.domain.Assignment;
 import de.csgt.domain.Buy;
 import de.csgt.domain.Material;
 import de.csgt.domain.Product;
@@ -49,13 +50,18 @@ public class SellServiceImpTest {
     @Test
     @Transactional
     public void testSaveAndDeleteSell() throws Exception {
-    	
+    	assertEquals(0, ((List<Buy>) buyService.listAllBuys()).size());
     	Material mat = null;
     	Product product = prodService.listAllProducts().iterator().next();
     	ArrayList<SellMaterial> sellMaterials = new ArrayList<SellMaterial>();
     	Sell sell = new Sell();
     	List<Material> listAllMaterials = (List<Material>) materialService.listAllMaterials();
     	
+    	Buy buy = new Buy(null, new Date(new java.util.Date().getTime()), 10, 0, 1.1, false, 1, listAllMaterials.get(0), ((List<Assignment>)assService.listAllAssignments()).get(0));
+    	buyService.saveBuy(buy);
+    	
+    	Buy buy2 = new Buy(null, new Date(new java.util.Date().getTime()), 10, 0, 1.1, false, 1, listAllMaterials.get(0), ((List<Assignment>)assService.listAllAssignments()).get(0));
+    	buyService.saveBuy(buy2);
     	for (Material material : listAllMaterials) {
 			if (material.getAvailable() > 1 && material.getBuys().size() > 1) {
 				mat = material;
@@ -65,7 +71,6 @@ public class SellServiceImpTest {
 				break;
 			}
 		}
-    	
     	Buy firstBuy = ((List<Buy>) buyService.listAllBuysByMaterialAndNotSold(mat)).get(0);
     	logger.info("q:" + firstBuy.getQuantity());
     	logger.info("s:" + firstBuy.getSoldInt());
@@ -139,12 +144,17 @@ public class SellServiceImpTest {
     @Test
     @Transactional
     public void testSaveAndDeleteSell2() throws Exception {
-    	
+    	assertEquals(0, ((List<Buy>) buyService.listAllBuys()).size());
     	Material mat = null;
     	Product product = prodService.listAllProducts().iterator().next();
     	ArrayList<SellMaterial> sellMaterials = new ArrayList<SellMaterial>();
     	Sell sell = new Sell();
     	List<Material> listAllMaterials = (List<Material>) materialService.listAllMaterials();
+    	Buy buy = new Buy(null, new Date(new java.util.Date().getTime()), 10, 0, 1.1, false, 1, listAllMaterials.get(0), ((List<Assignment>)assService.listAllAssignments()).get(0));
+    	buyService.saveBuy(buy);
+    	
+    	Buy buy2 = new Buy(null, new Date(new java.util.Date().getTime()), 10, 0, 1.1, false, 1, listAllMaterials.get(0), ((List<Assignment>)assService.listAllAssignments()).get(0));
+    	buyService.saveBuy(buy2);
     	
     	for (Material material : listAllMaterials) {
 			if (material.getAvailable() > 1 && material.getBuys().size() > 1) {
@@ -170,10 +180,12 @@ public class SellServiceImpTest {
     	mat = materialService.getMaterialById(mat.getId());
     	int sellSizeBefore = ((List<Sell>) sellService.listAllSells()).size();
     	int materialAvailBefore = mat.getAvailable();
+		int sellMaterialsToTestBefore = mat.getSellMaterials().size();
 		
     	sell = sellService.saveSell(sell);
 		
     	mat = materialService.getMaterialById(mat.getId());
+    	int sellMaterialsToTestAfter = mat.getSellMaterials().size();
     	firstBuy = buyService.getBuyById(firstBuy.getId());
     	secondBuy = buyService.getBuyById(secondBuy.getId());
 		int sellSizeAfter = ((List<Sell>) sellService.listAllSells()).size();
@@ -186,6 +198,7 @@ public class SellServiceImpTest {
 		assertEquals(firstBuy.getQuantity().intValue(), firstBuySoldAfter);
 		assertEquals(sell.getSellBuys().size(), 2);
 		assertEquals(secondBuySoldBefore + firstBuySoldBefore - firstBuySoldAfter + 12, secondBuySoldAfter);
+		assertEquals(sellMaterialsToTestBefore + 1, sellMaterialsToTestAfter);
 		
 		sellService.deleteSell(sell.getId());
 		

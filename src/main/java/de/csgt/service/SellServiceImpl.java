@@ -1,6 +1,7 @@
 package de.csgt.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -127,6 +128,16 @@ public class SellServiceImpl implements SellService {
 		sell.setSellBuys(sellBuys);
 		
 		sell = sellRepository.save(sell);
+		for (SellMaterial sellMaterial : sell.getSellMaterials()) {
+			Material mat = materialService.getMaterialById(sellMaterial.getMaterial().getId());
+			if (mat.getSellMaterials() == null) {
+				mat.setSellMaterials(new ArrayList<SellMaterial>());
+			}
+			if (!mat.getSellMaterials().contains(sellMaterial)) {
+				mat.getSellMaterials().add(sellMaterial);
+			}
+			materialService.saveMaterial(mat);
+		}
 		log.info("SellBuys size:" + sell.getSellBuys().size());
 		return sell;
 	}
@@ -142,6 +153,13 @@ public class SellServiceImpl implements SellService {
 			material.setAvailable(quantity + material.getAvailable());
 			buy.setSoldInt(buy.getSoldInt() - quantity);
 			buy.setSold(false);
+			List<SellMaterial> sellMaterials = material.getSellMaterials();
+			Iterator<SellMaterial> iterator = sellMaterials.iterator();
+			if (iterator.hasNext()) {
+				if (iterator.next().getSell().getId().equals(sell.getId())) {
+					iterator.remove();
+				}
+			}
 			materialService.saveMaterial(material);
 			buyService.saveBuyRaw(buy);
 		}

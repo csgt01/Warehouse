@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
 import de.csgt.domain.Assignment;
 import de.csgt.domain.Color;
 import de.csgt.domain.Material;
+import de.csgt.domain.Product;
 import de.csgt.domain.Shop;
 import de.csgt.service.AssignmentService;
 import de.csgt.service.MaterialService;
+import de.csgt.service.ProductService;
 import de.csgt.service.ShopService;
 
 @Component
@@ -31,39 +33,47 @@ public class MaterialLoader implements ApplicationListener<ContextRefreshedEvent
 
 	@Autowired
 	private AssignmentService assService;
+	
+	@Autowired
+	private ProductService prodService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
     	
-//    	setupMaterials();
-//    	Shop murmelkiste = new Shop();
-//    	murmelkiste.setId(1L);
-//    	murmelkiste.setName("Murmelkiste");
-//    	murmelkiste.setCity("Berlin");
-//    	if (shopService.getShopById(1L) == null) {
-//    		shopService.saveShop(murmelkiste);
-//    	}
-//    	
-//    	Shop emmalein = new Shop();
-//    	emmalein.setId(2L);
-//    	emmalein.setName("emmalein");
-//    	if (shopService.getShopById(2L) == null) {
-//    		shopService.saveShop(emmalein);
-//    	}
-//    	
-//    	Assignment ass1 = new Assignment();
-//    	ass1.setId(1L);
-//    	ass1.setShop(murmelkiste);
-//    	Calendar cal = Calendar.getInstance();
-//    	cal.set(Calendar.YEAR, 2016);
-//    	cal.set(Calendar.MONTH, 0);
-//    	cal.set(Calendar.DAY_OF_MONTH, 26);
-//    	ass1.setOrderedAt(new Date(cal.getTimeInMillis()));
-//    	ass1.setOrderNumber("2016-0766");
-//    	if (assService.getAssignmentById(1L) == null) {
-//    		assService.saveAssignment(ass1);
-//    	}
+    	setupMaterials();
+    	Shop murmelkiste = new Shop();
+    	murmelkiste.setId(1L);
+    	murmelkiste.setName("Murmelkiste");
+    	murmelkiste.setCity("Berlin");
+    	if (shopService.getShopById(1L) == null) {
+    		shopService.saveShop(murmelkiste);
+    	}
     	
+    	Shop emmalein = new Shop();
+    	emmalein.setId(2L);
+    	emmalein.setName("emmalein");
+    	if (shopService.getShopById(2L) == null) {
+    		shopService.saveShop(emmalein);
+    	}
+    	
+    	Assignment ass1 = new Assignment();
+    	ass1.setId(1L);
+    	ass1.setShop(murmelkiste);
+    	Calendar cal = Calendar.getInstance();
+    	cal.set(Calendar.YEAR, 2016);
+    	cal.set(Calendar.MONTH, 0);
+    	cal.set(Calendar.DAY_OF_MONTH, 26);
+    	ass1.setOrderedAt(new Date(cal.getTimeInMillis()));
+    	ass1.setOrderNumber("2016-0766");
+    	if (assService.getAssignmentById(1L) == null) {
+    		assService.saveAssignment(ass1);
+    	}
+    	Product product = new Product();
+    	product.setId(1);
+    	product.setName("Schnullerkette");
+    	if (prodService.getProductById(1) == null) {
+    		prodService.saveProduct(product);
+    	}
     }
 
 
